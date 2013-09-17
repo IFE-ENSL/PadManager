@@ -3,6 +3,7 @@ PadManager
 
 Symfony2 application in order to manager etherpad via email and token
 
+
 Installation
 ============
 
@@ -10,7 +11,7 @@ Installation
 --------------------------------
 
 ```sh
-$ git clone https://github.com/IFE-ENSL/PadManager.git
+git clone https://github.com/IFE-ENSL/PadManager.git
 ```
 
 2) Installing the Standard Edition
@@ -28,13 +29,13 @@ If you don't have Composer yet, download it following the instructions on
 http://getcomposer.org/ or just run the following command:
 
 ```sh
-    curl -s http://getcomposer.org/installer | php
+curl -s http://getcomposer.org/installer | php
 ```
 
 Then, use the `create-project` command to generate a new Symfony application:
 
 ```sh
-    php composer.phar create-project symfony/framework-standard-edition path/to/install
+php composer.phar create-project symfony/framework-standard-edition path/to/install
 ```
 
 Composer will install Symfony and all its dependencies under the
@@ -50,7 +51,7 @@ the necessary dependencies. Download composer (see above) and run the
 following command:
 
 ```sh
-    php composer.phar install
+php composer.phar install
 ```
 
 ### Install application vendors
@@ -58,7 +59,7 @@ following command:
 Go inside the cloned folder and use Composer to install all the application dependencies
 
 ```sh
-$ php composer.phar update
+php composer.phar update
 ```
 
 3) Checking your System Configuration
@@ -70,7 +71,7 @@ configured for Symfony.
 Execute the `check.php` script from the command line:
 
 ```sh
-    php app/check.php
+php app/check.php
 ```
 
 The script returns a status code of `0` if all mandatory requirements are met,
