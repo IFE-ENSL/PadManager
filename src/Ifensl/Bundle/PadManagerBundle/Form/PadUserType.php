@@ -15,7 +15,12 @@ class PadUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
+            ->add('email', 'text', array(
+                'label' => false,
+                'attr' => array(
+                    'placeholder' => 'courriel',
+                )
+            ))
         ;
     }
     
@@ -25,7 +30,7 @@ class PadUserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => null
+            'data_class' => 'Ifensl\Bundle\PadManagerBundle\Entity\PadUser'
         ));
     }
 

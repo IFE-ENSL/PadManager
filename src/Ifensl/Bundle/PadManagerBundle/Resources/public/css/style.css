@@ -1,0 +1,71 @@
+
+/**
+ * General properties
+ */
+
+body
+{
+    margin: 0;
+}
+
+iframe
+{
+    width: 100%;
+    height: 800px;
+}
+
+@font-face
+{
+    font-family: 'lobster';
+    src: url('../fonts/lobster_1.4-webfont.eot');
+    src: url('../fonts/lobster_1.4-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/lobster_1.4-webfont.woff') format('woff'),
+         url('../fonts/lobster_1.4-webfont.ttf') format('truetype'),
+         url('../fonts/lobster_1.4-webfont.svg#lobster_1.4regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/**
+ * New pad page
+ */
+
+/* Header */
+header
+{
+    height: 200px;
+    background: url('../images/header-background.png') repeat;
+    font-size: 40px;
+}
+
+header h1
+{
+    font-family: lobster;
+    line-height: 200px;
+    text-align: center;
+    color: #2986dc;
+    height: 200px;
+    margin: 0;
+}
+
+/* Content of the page */
+#main
+{
+    height: 400px;
+    background: url('../images/content-background.png') repeat;
+    border-bottom: 3px solid #8f7553;
+    border-top: 3px solid #8f7553;
+}
+
+#main > .content
+{
+    width: 1170px;
+    margin: 0 auto;
+}
+
+/* Footer */
+footer
+{
+    background: url('../images/header-background.png') repeat;
+    height: 300px;
+}

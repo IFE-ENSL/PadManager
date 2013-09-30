@@ -8,6 +8,16 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PadType extends AbstractType
 {
+    private $choices;
+
+    /**
+     * Constructor
+     */
+    public function __construct($choices)
+    {
+        $this->choices = $choices;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -15,10 +25,28 @@ class PadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('padUsers', new PadUserType())
-            ->add('program', 'choice')
-            ->add('ue', 'choice')
-            ->add('subject', 'choice')
+            ->add('padUsers','collection', array(
+                'type' => new PadUserType(),
+                'allow_add' => true,
+                'by_reference' => false,
+                'label' => false,
+                'attr' => array(
+                    'placeholder' => 'courriel',
+                )
+            ))
+            ->add('program', 'choice', array(
+                'label' => 'Programme',
+                'choices' => $this->choices['programs']
+            ))
+            ->add('ue', 'choice', array(
+                'label' => 'UE',
+                'choices' => $this->choices['ues']
+            ))
+            ->add('subject', 'choice', array(
+                'label' => 'Matière',
+                'choices' => $this->choices['subjects']
+            ))
+            ->add('submit', 'submit', array('label' => 'Créer'))
         ;
     }
     

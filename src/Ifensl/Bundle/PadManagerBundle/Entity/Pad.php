@@ -108,7 +108,7 @@ class Pad
      *
      * @ORM\PrePersist()
      */
-    public function setTokens()
+    public function generateTokens()
     {
         $privateToken = sprintf("%s%s%ss%s%s",
             $this->salt,
@@ -127,9 +127,9 @@ class Pad
     }
 
     /**
-     * Get id
+     * Get pad user owner
      *
-     * @return integer 
+     * @return PadUser 
      */
     public function getPadUserOwner()
     {
