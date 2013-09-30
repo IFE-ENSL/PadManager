@@ -1,0 +1,4 @@
+ifensl_padmanager:
+    resource: "@IfenslPadManagerBundle/Controller/"
+    type:     annotation
+    prefix:   /

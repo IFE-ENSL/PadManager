@@ -89,6 +89,7 @@ class Pad
     /**
      * @ORM\ManyToMany(targetEntity="PadUser", inversedBy="pads")
      * @ORM\JoinColumn(nullable=false)
+
      */
     private $padUsers;
 
@@ -109,9 +110,11 @@ class Pad
      */
     public function setTokens()
     {
-        $privateToken = sprintf("%s%s%ss",
+        $privateToken = sprintf("%s%s%ss%s%s",
             $this->salt,
             $this->ue,
+            $this->program,
+            $this->subject,
             $this->getPadUserOwner()[0]
         );
 
@@ -131,6 +134,27 @@ class Pad
     public function getPadUserOwner()
     {
         return $this->padUsers[0];
+    }
+
+    /**
+     * Set schoolYear
+     *
+     * @param string $schoolYear
+     * @return Pad
+     */
+    public function setSchoolYear()
+    {
+        $date = new \DateTime("now");
+        $month = intval($date->format('m'));
+        $year = intval($date->format('Y'));
+
+        if ($month >= 9) {
+            $this->schoolYear = sprintf("%s-%s", $year, $year+1);
+        } else {
+            $this->schoolYear = sprintf("%s-%s", $year-1, $year );
+        }
+
+        return $this;
     }
 
     /**
@@ -302,21 +326,6 @@ class Pad
     public function getSalt()
     {
         return $this->salt;
-    }
-
-    /**
-     * Set schoolYear
-     *
-     * @param string $schoolYear
-     * @return Pad
-     */
-    public function setSchoolYear()
-    {
-        $date = new \DateTime("now");
-        var_dump($date->format('m')); die();
-        // $this->schoolYear = 
-
-        return $this;
     }
 
     /**
