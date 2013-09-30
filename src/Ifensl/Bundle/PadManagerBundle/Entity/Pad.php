@@ -87,7 +87,7 @@ class Pad
     private $schoolYear;
 
     /**
-     * @ORM\ManyToMany(targetEntity="PadUser", inversedBy="pads")
+     * @ORM\ManyToMany(targetEntity="PadUser", inversedBy="pads", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
 
      */
@@ -369,5 +369,14 @@ class Pad
     public function getPadUsers()
     {
         return $this->padUsers;
+    }
+
+    public function setPadUsers(ArrayCollection $padUsers)
+    {
+        foreach ($padUsers as $padUser) {
+            $padUser->addPad($this);
+        }
+
+        $this->padUsers = $padUsers;
     }
 }

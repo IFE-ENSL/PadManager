@@ -85,13 +85,15 @@ class PadUser
     /**
      * Add pads
      *
-     * @param \Ifensl\Bundle\PadManagerBundle\Entity\Pad $pads
+     * @param \Ifensl\Bundle\PadManagerBundle\Entity\Pad $pad
      * @return PadUser
      */
-    public function addPad(\Ifensl\Bundle\PadManagerBundle\Entity\Pad $pads)
+    public function addPad(\Ifensl\Bundle\PadManagerBundle\Entity\Pad $pad)
     {
-        $this->pads[] = $pads;
-    
+        if (!$this->pads->contains($pad)) {
+            $this->pads->add($pad);
+        }
+
         return $this;
     }
 
@@ -114,4 +116,5 @@ class PadUser
     {
         return $this->pads;
     }
+ 
 }

@@ -1,5 +1,7 @@
 {% extends "::base.html.twig" %}
 
+{% form_theme form 'IfenslPadManagerBundle:Form:fields.html.twig' %}
+
 {% block body %}
     <header>
         <h1>Cahier de cours</h1>
@@ -16,4 +18,8 @@
     <footer>
         
     </footer>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/ifenslpadmanager/js/userFormCollection.js') }}"></script>
 {% endblock %}

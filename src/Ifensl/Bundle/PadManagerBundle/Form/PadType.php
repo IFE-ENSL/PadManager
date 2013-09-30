@@ -28,6 +28,7 @@ class PadType extends AbstractType
             ->add('padUsers','collection', array(
                 'type' => new PadUserType(),
                 'allow_add' => true,
+                'allow_delete' => true,
                 'by_reference' => false,
                 'label' => false,
                 'attr' => array(
@@ -35,21 +36,24 @@ class PadType extends AbstractType
                 )
             ))
             ->add('program', 'choice', array(
-                'label' => 'Programme',
+                'label' => false,
+                'empty_value' => 'Programme',
                 'choices' => $this->choices['programs']
             ))
             ->add('ue', 'choice', array(
-                'label' => 'UE',
+                'label' => false,
+                'empty_value' => 'UE',
                 'choices' => $this->choices['ues']
             ))
             ->add('subject', 'choice', array(
-                'label' => 'Matière',
+                'label' => false,
+                'empty_value' => 'Matière',
                 'choices' => $this->choices['subjects']
             ))
             ->add('submit', 'submit', array('label' => 'Créer'))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

@@ -63,6 +63,17 @@ header h1
     margin: 0 auto;
 }
 
+/* Form */
+#ifensl_padmanagerbundle_pad input,
+#ifensl_padmanagerbundle_pad select
+{
+    color: #2986dc;
+    padding: 6px 10px;
+    width: 200px;
+}
+
+/* TODO */
+
 /* Footer */
 footer
 {
