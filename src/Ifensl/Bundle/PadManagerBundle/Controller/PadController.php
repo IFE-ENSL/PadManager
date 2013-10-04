@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Pad controller
@@ -30,7 +31,7 @@ class PadController extends Controller
     public function newPadAction()
     {
         $form = $this->createForm(
-                new PadType($this->getAllPadTypeChoices()),
+                new PadType(),
                 new Pad()
         );
         return array('form' => $form->createView());
@@ -42,42 +43,21 @@ class PadController extends Controller
      * @Route("/new", name="ifensl_pad_create")
      * @Method("POST");
      */
-    public function createPadAction()
+    public function createPadAction(Request $request)
     {
-        die("TODO");
-        // First we check if the user is registered. If not we create him.
-        // We must check if the pad isn't already created
-    }
-
-    /**
-     * Get all choices needed for The PadType form
-     */
-    private function getAllPadTypeChoices()
-    {
-        $choices = array();
-        $em = $this->getDoctrine()->getManager();
-        foreach (self::$ENTITIES_REPOSITORY_NAME_MAP as $key => $value) {
-            $choices[$key] = $this->getEntityPadTypeChoices(
-                $em->getRepository(sprintf('IfenslPadManagerBundle:%s', $value))->findAll()
-            );
+        $form = $this->createForm(
+                new PadType(),
+                new Pad()
+        );
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            die("TODO");
+                    
+            // First we check if the user is registered. If not we create him.
+            // We must check if the pad isn't already created
+            
+            /*$pad = $form->getData();
+            var_dump($pad->getPadUsers()); die;*/
         }
-
-        return $choices;
-    }
-
-    /**
-     * Get choices for a given Entity (such as program, subject or ue)
-     *
-     * @param type $entities
-     * @return type
-     */
-    private function getEntityPadTypeChoices($entities)
-    {
-        $entityChoices = array();
-        foreach ($entities as $entity) {
-            $entityChoices[$entity->getName()] = $entity->getName();
-        }
-
-        return $entityChoices;
     }
 }

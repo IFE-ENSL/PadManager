@@ -89,7 +89,6 @@ class Pad
     /**
      * @ORM\ManyToMany(targetEntity="PadUser", inversedBy="pads", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-
      */
     private $padUsers;
 

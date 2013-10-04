@@ -32,7 +32,7 @@ class Subject
     /**
      * @var string $name
      *
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false, unique=true)
      */
     private $name;
 
@@ -42,6 +42,16 @@ class Subject
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * to string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 
     /**
      * Get id

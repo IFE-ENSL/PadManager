@@ -8,16 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PadType extends AbstractType
 {
-    private $choices;
-
-    /**
-     * Constructor
-     */
-    public function __construct($choices)
-    {
-        $this->choices = $choices;
-    }
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -35,23 +25,23 @@ class PadType extends AbstractType
                     'placeholder' => 'courriel'
                 )
             ))
-            ->add('program', 'choice', array(
-                'attr' => array('class' => 'program'),
-                'label' => false,
+            ->add('program', 'entity', array(
+                'class' => 'IfenslPadManagerBundle:Program',
                 'empty_value' => 'Programme',
-                'choices' => $this->choices['programs']
-            ))
-            ->add('ue', 'choice', array(
-                'attr' => array('class' => 'ue'),
                 'label' => false,
+                'attr' => array('class' => 'program')
+            ))
+            ->add('ue', 'entity', array(
+                'class' => 'IfenslPadManagerBundle:UE',
                 'empty_value' => 'UE',
-                'choices' => $this->choices['ues']
-            ))
-            ->add('subject', 'choice', array(
-                'attr' => array('class' => 'subject'),
                 'label' => false,
+                'attr' => array('class' => 'ue')
+            ))
+            ->add('subject', 'entity', array(
+                'class' => 'IfenslPadManagerBundle:Subject',
                 'empty_value' => 'Matière',
-                'choices' => $this->choices['subjects']
+                'label' => false,
+                'attr' => array('class' => 'subject')
             ))
             ->add('submit', 'submit', array('label' => 'Créer'))
         ;
