@@ -6,6 +6,7 @@
 body
 {
     margin: 0;
+    color: #000;
 }
 
 iframe
@@ -35,11 +36,11 @@ header
 {
     height: 200px;
     background: url('../images/header-background.png') repeat;
-    font-size: 40px;
 }
 
 header h1
 {
+    font-size: 60px;
     font-family: lobster;
     line-height: 200px;
     text-align: center;
@@ -51,32 +52,170 @@ header h1
 /* Content of the page */
 #main
 {
-    height: 400px;
+    min-height: 320px;
     background: url('../images/content-background.png') repeat;
     border-bottom: 3px solid #8f7553;
     border-top: 3px solid #8f7553;
 }
 
-#main > .content
-{
-    width: 1170px;
-    margin: 0 auto;
-}
-
 /* Form */
-#ifensl_padmanagerbundle_pad input,
-#ifensl_padmanagerbundle_pad select
+
+.new-pad form
 {
-    color: #2986dc;
-    padding: 6px 10px;
-    width: 200px;
+    width: 315px;
+    margin: 20px auto 0;
 }
 
-/* TODO */
+.new-pad form button
+{
+    background-image:linear-gradient(#eeeeee, #dddddd);
+    margin-left: 200px;
+    border-radius: 15px;
+    border: none;
+    padding: 5px 10px;
+    color: #2986dc;
+}
+
+.new-pad form button:hover
+{
+    color: #fff;
+    background: #2986dc;
+}
+
+form .entry
+{
+    width: 305px;
+}
+
+form #ifensl_padmanagerbundle_pad > .row-fluid
+{
+    position: relative;
+    margin: 15px 0;
+}
+
+form #ifensl_padmanagerbundle_pad_padUsers .row-fluid .entry .entry .corner,
+form .row-fluid .entry.ue .corner,
+form .row-fluid .entry.subject .corner,
+form .row-fluid .entry.program .corner
+{
+    width: 40px;
+    height: 30px;
+    position: relative;
+}
+
+form #ifensl_padmanagerbundle_pad_padUsers .row-fluid .entry .entry .corner.pull-left,
+form .row-fluid .entry.program .corner.pull-left,
+form .row-fluid .entry.subject .corner.pull-left,
+form .row-fluid .entry.ue .corner.pull-left
+{
+    border-radius: 15px 0 0 15px;
+    background-image:linear-gradient(#eeeeee, #dddddd);
+}
+
+form select,
+form #ifensl_padmanagerbundle_pad_padUsers .row-fluid .entry .entry input
+{
+    margin: 0;
+    border-radius: 0 15px 15px 0;
+    color: #2986dc;
+    -webkit-appearance: none;
+    padding: 0 0 0 20px;
+    background-image:linear-gradient(#eeeeee, #dddddd);
+    border: none;
+}
+
+form #ifensl_padmanagerbundle_pad_padUsers .row-fluid .entry .entry input
+{
+    padding: 5px 0 5px 15px;
+}
+
+form select:focus
+{
+    border: none;
+    outline-offset: 0;
+    outline: none;
+}
+
+form #ifensl_padmanagerbundle_pad_padUsers .row-fluid .entry .entry .icon,
+form .entry .icon
+{
+    position: absolute;
+    top: 5px;
+    left: 15px;
+    height: 20px;
+    width: 20px;
+}
+
+form .entry.program .icon
+{
+    background: url('../images/sprite.png') no-repeat -20px 0px;
+}
+
+form .entry.ue .icon
+{
+    background: url('../images/sprite.png') no-repeat -40px 0px;
+}
+
+form .entry.subject .icon
+{
+    background: url('../images/sprite.png') no-repeat -60px 0px;
+}
+
+form #ifensl_padmanagerbundle_pad_padUsers .entry .entry .icon
+{
+    background: url('../images/sprite.png') no-repeat 0px 0px;
+}
+
+form div.add_user
+{
+    border-radius: 15px;
+    position: absolute;
+    top: 5px;
+    left: 280px;
+    background: #e5e5e5;
+    width: 30px;
+    height: 30px;
+}
+
+form div.add_user a.add_user_link
+{
+    display: inline-block;
+    background: url('../images/sprite.png') no-repeat -120px 0px;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+}
+
+form .delete_user
+{
+    padding: 10px 0 0 0;
+}
+
+/* Mentions */
+
+.new-pad .mentions
+{
+    padding: 20px 0;
+    text-align: center;
+    font-family: lobster;
+}
+.new-pad .mentions span
+{
+    color: #fff;
+}
 
 /* Footer */
 footer
 {
     background: url('../images/header-background.png') repeat;
+    overflow: auto;
     height: 300px;
+}
+
+footer .web-eco-picture
+{
+    background: url('../images/sprite.png') no-repeat 0px -70px;
+    width: 1000px;
+    height: 300px;
+    margin: 50px auto 0;
 }

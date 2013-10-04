@@ -1,7 +1,7 @@
 var userContainer = $('#ifensl_padmanagerbundle_pad_padUsers');
 var containerLength = userContainer.find(':input').length;
-var $addUserLink = $('<a href="#" class="add_user_link">Ajouter un utilisateur (courriel)</a>');
-var $newLink = $('<div></div>').append($addUserLink);
+var $addUserLink = $('<a href="#" class="add_user_link"></a>');
+var $newLink = $('<div class="add_user"></div>').append($addUserLink);
 
 jQuery(document).ready(function() {
 
@@ -49,7 +49,7 @@ function addUserForm(userContainer, $newLink) {
 }
 
 function addUserFormDeleteLink($userFormLi) {
-    var $removeFormA = $('<a href="#">Supprimer cet utilisateur</a>');
+    var $removeFormA = $('<div class="delete_user"><a href="#">Supprimer cet utilisateur</a></div>');
     $userFormLi.append($removeFormA);
     $removeFormA.on('click', function(e) {
         e.preventDefault();

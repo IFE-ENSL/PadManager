@@ -1,9 +1,17 @@
 {% block form_row %}
 {% spaceless %}
-    <div class="form-row">
+    <div class="row-fluid">
         {{ form_label(form) }}
         {{ form_errors(form) }}
-        <span></span>{{ form_widget(form) }}
+        <div class="entry {% if attr.class is defined %}{{ attr.class }}{% endif %}">
+            <div class="corner pull-left">
+                <div class="icon"></div>
+            </div>
+            {{ form_widget(form) }}
+            <div class="corner pull-right">
+                <div class="drop-icon"></div>
+            </div>
+        </div>
     </div>
 {% endspaceless %}
 {% endblock form_row %}

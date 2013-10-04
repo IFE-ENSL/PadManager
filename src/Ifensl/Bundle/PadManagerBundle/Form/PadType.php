@@ -32,20 +32,23 @@ class PadType extends AbstractType
                 'by_reference' => false,
                 'label' => false,
                 'attr' => array(
-                    'placeholder' => 'courriel',
+                    'placeholder' => 'courriel'
                 )
             ))
             ->add('program', 'choice', array(
+                'attr' => array('class' => 'program'),
                 'label' => false,
                 'empty_value' => 'Programme',
                 'choices' => $this->choices['programs']
             ))
             ->add('ue', 'choice', array(
+                'attr' => array('class' => 'ue'),
                 'label' => false,
                 'empty_value' => 'UE',
                 'choices' => $this->choices['ues']
             ))
             ->add('subject', 'choice', array(
+                'attr' => array('class' => 'subject'),
                 'label' => false,
                 'empty_value' => 'Matière',
                 'choices' => $this->choices['subjects']
