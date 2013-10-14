@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Ifensl\Bundle\PadManagerBundle\Entity\Pad;
 use Ifensl\Bundle\PadManagerBundle\Form\PadCreationType;
@@ -32,24 +33,38 @@ class PadController extends Controller
     /**
      * Create a new Pad
      *
-     * @Route("/new", name="ifensl_pad_create")
+     * @Route("/create", name="ifensl_pad_create")
      * @Method("POST");
      * @Template("IfenslPadManagerBundle:Pad:index.html.twig")
      */
     public function createPadAction(Request $request)
     {
-        $form = $this->createForm(new PadType(), new Pad());
+        $form = $this->createForm(new PadCreationType(), new Pad());
         $form->handleRequest($request);
         if ($form->isValid()) {
             $pad = $form->getData();
-            $em = $this->getEntityManager('IfenslPadManagerBundle:Pad');
-            $em->persist($pad);
-            $em->flush();
+            $this->get('ifensl_pad_manager')->createPad($pad);
 
-            die('Good');
+            return $this->redirect($this->generateUrl(
+                'ifensl_pad_created',
+                array('id' => $pad->getId())
+            ));
         }
 
         return array('form' => $form->createView());
+    }
+
+    /**
+     * Pad created
+     *
+     * @Route("/{id}/created", name="ifensl_pad_created")
+     * @ParamConverter("pad", class="IfenslPadManagerBundle:Pad", options={"id" = "id"})
+     * @Method("GET");
+     * @Template()
+     */
+    public function padCreatedAction(Pad $pad, Request $request)
+    {
+        return array('pad' => $pad);
     }
 
     /**

@@ -8,7 +8,7 @@
  *
  */
 
-namespace Ifensl\Bundle\PadManagerBundle\Service;
+namespace Ifensl\Bundle\PadManagerBundle\TokenGenerator;
 
 use Ifensl\Bundle\PadManagerBundle\Entity\Pad;
 
@@ -42,6 +42,7 @@ class PadTokenGenerator
     public function generateSalt()
     {
         $date = new \DateTime();
+
         return md5($date->format('c'));
     }
 }

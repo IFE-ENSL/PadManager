@@ -24,6 +24,7 @@ class PadType extends AbstractType
           ->add('state', 'choice', array(
               'choices' => Pad::getStates()
           ))
+          ->add('save', 'submit')
         ;
     }
 

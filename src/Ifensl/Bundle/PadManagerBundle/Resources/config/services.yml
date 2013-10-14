@@ -1,2 +1,17 @@
 services:
+    ifensl_pad_manager.pad_token_generator:
+        class: Ifensl\Bundle\PadManagerBundle\TokenGenerator\PadTokenGenerator
+        arguments: []
+
+    ifensl_pad_manager.pad_mailer:
+        class: Ifensl\Bundle\PadManagerBundle\Mailer\PadMailer
+        arguments: [@mailer, @templating]
+
+    ifensl_pad_manager:
+        class: Ifensl\Bundle\PadManagerBundle\PadManager
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @ifensl_pad_manager.pad_token_generator
+            - @ifensl_pad_manager.pad_mailer
+
 
