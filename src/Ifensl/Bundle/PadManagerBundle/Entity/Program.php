@@ -44,6 +44,11 @@ class Program
     private $description;
 
     /**
+     * @ORM\OneToMany(targetEntity="Pad", mappedBy="program")
+     */
+    private $pads;
+
+    /**
      * to string
      *
      * @return string
@@ -51,6 +56,14 @@ class Program
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->pads = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -72,7 +85,7 @@ class Program
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
@@ -95,7 +108,7 @@ class Program
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
@@ -107,5 +120,38 @@ class Program
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Add pad
+     *
+     * @param \Ifensl\Bundle\PadManagerBundle\Entity\Pad $pad
+     * @return Program
+     */
+    public function addPad(\Ifensl\Bundle\PadManagerBundle\Entity\Pad $pad)
+    {
+        $this->pads[] = $pad;
+
+        return $this;
+    }
+
+    /**
+     * Remove pads
+     *
+     * @param \Ifensl\Bundle\PadManagerBundle\Entity\Pad $pad
+     */
+    public function removePad(\Ifensl\Bundle\PadManagerBundle\Entity\Pad $pad)
+    {
+        $this->pads->removeElement($pad);
+    }
+
+    /**
+     * Get pads
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPads()
+    {
+        return $this->pads;
     }
 }
