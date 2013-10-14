@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Ifensl\Bundle\PadManagerBundle\Entity\Subject
  *
  * @ORM\Entity
- * @ORM\Table(name="subject")
+ * @ORM\Table(name="pad_subject")
  */
 class Subject
 {

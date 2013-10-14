@@ -13,12 +13,12 @@ namespace Ifensl\Bundle\PadManagerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Ifensl\Bundle\PadManagerBundle\Entity\UE
+ * Ifensl\Bundle\PadManagerBundle\Entity\Unit
  *
  * @ORM\Entity
- * @ORM\Table(name="ue")
+ * @ORM\Table(name="pad_unit")
  */
-class UE
+class Unit
 {
     /**
      * @var integer $id
@@ -67,7 +67,7 @@ class UE
      * Set name
      *
      * @param string $name
-     * @return UE
+     * @return Unit
      */
     public function setName($name)
     {
@@ -90,7 +90,7 @@ class UE
      * Set description
      *
      * @param string $description
-     * @return UE
+     * @return Unit
      */
     public function setDescription($description)
     {

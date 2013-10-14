@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PadType extends AbstractType
+class PadCreationType extends PadType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -14,24 +14,13 @@ class PadType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder
-          ->add('state')
-          ->add('schoolYear')
+          ->add('padUsers', 'collection')
           ->add('program')
           ->add('unit')
           ->add('subject')
-          ->add('padUsers')
         ;
-    }
-
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ifensl\Bundle\PadManagerBundle\Entity\Pad'
-        ));
     }
 
     /**
@@ -39,6 +28,6 @@ class PadType extends AbstractType
      */
     public function getName()
     {
-        return 'ifensl_padmanagerbundle_pad';
+        return 'ifensl_padmanagerbundle_padcreation';
     }
 }

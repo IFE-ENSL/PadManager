@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Ifensl\Bundle\PadManagerBundle\Entity\Program
  *
  * @ORM\Entity()
- * @ORM\Table(name="program")
+ * @ORM\Table(name="pad_program")
  */
 class Program
 {

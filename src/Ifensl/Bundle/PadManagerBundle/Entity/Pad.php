@@ -45,27 +45,6 @@ class Pad
     private $publicToken;
 
     /**
-     * @var string $ue
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $ue;
-
-    /**
-     * @var string $subject
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $subject;
-
-    /**
-     * @var string $program
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $program;
-
-    /**
      * @var string $state
      *
      * @ORM\Column(type="string", length=255)
@@ -87,10 +66,49 @@ class Pad
     private $schoolYear;
 
     /**
-     * @ORM\ManyToMany(targetEntity="PadUser", inversedBy="pads", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     * @var Program
+     *
+     * @ORM\ManyToOne(targetEntity="Program", inversedBy="pads")
+     * @ORM\JoinColumn(name="program_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $program;
+
+    /**
+     * @var Unit
+     *
+     * @ORM\ManyToOne(targetEntity="Unit", inversedBy="pads")
+     * @ORM\JoinColumn(name="unit_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $unit;
+
+    /**
+     * @var Subject
+     *
+     * @ORM\ManyToOne(targetEntity="Subject", inversedBy="pads")
+     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $subject;
+
+    /**
+     * @var array<PadUser>
+     *
+     * @ORM\ManyToMany(targetEntity="PadUser", cascade={"all"})
+     * @ORM\JoinTable(name="pad_paduser",
+     *     joinColumns={@ORM\JoinColumn(name="pad_id", referencedColumnName="id", onDelete="CASCADE")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")}
+     * )
      */
     private $padUsers;
+
+    /**
+     * Get pad user owner
+     *
+     * @return PadUser 
+     */
+    public function getOwner()
+    {
+        return $this->padUsers[0];
+    }
 
     /**
      * Constructor
@@ -98,62 +116,6 @@ class Pad
     public function __construct()
     {
         $this->padUsers = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->salt = "z@6X(!{+fKR}*^x0m||phK8p@I]-|_M5==Z(qh2X n<};inA!;oUEt~caO9Z/2W`";
-        $this->setSchoolYear();
-    }
-
-    /**
-     * Set tokens
-     *
-     * @ORM\PrePersist()
-     */
-    public function generateTokens()
-    {
-        $privateToken = sprintf("%s%s%ss%s%s",
-            $this->salt,
-            $this->ue,
-            $this->program,
-            $this->subject,
-            $this->getPadUserOwner()[0]
-        );
-
-        $publicToken = "TODO";
-
-        $this->privateToken = md5($privateToken);
-        $this->publicToken = md5($publicToken);
-
-        return $this;
-    }
-
-    /**
-     * Get pad user owner
-     *
-     * @return PadUser 
-     */
-    public function getPadUserOwner()
-    {
-        return $this->padUsers[0];
-    }
-
-    /**
-     * Set schoolYear
-     *
-     * @param string $schoolYear
-     * @return Pad
-     */
-    public function setSchoolYear()
-    {
-        $date = new \DateTime("now");
-        $month = intval($date->format('m'));
-        $year = intval($date->format('Y'));
-
-        if ($month >= 9) {
-            $this->schoolYear = sprintf("%s-%s", $year, $year+1);
-        } else {
-            $this->schoolYear = sprintf("%s-%s", $year-1, $year );
-        }
-
-        return $this;
     }
 
     /**
@@ -213,75 +175,6 @@ class Pad
     }
 
     /**
-     * Set ue
-     *
-     * @param string $ue
-     * @return Pad
-     */
-    public function setUe($ue)
-    {
-        $this->ue = $ue;
-    
-        return $this;
-    }
-
-    /**
-     * Get ue
-     *
-     * @return string 
-     */
-    public function getUe()
-    {
-        return $this->ue;
-    }
-
-    /**
-     * Set subject
-     *
-     * @param string $subject
-     * @return Pad
-     */
-    public function setSubject($subject)
-    {
-        $this->subject = $subject;
-    
-        return $this;
-    }
-
-    /**
-     * Get subject
-     *
-     * @return string 
-     */
-    public function getSubject()
-    {
-        return $this->subject;
-    }
-
-    /**
-     * Set program
-     *
-     * @param string $program
-     * @return Pad
-     */
-    public function setProgram($program)
-    {
-        $this->program = $program;
-    
-        return $this;
-    }
-
-    /**
-     * Get program
-     *
-     * @return string 
-     */
-    public function getProgram()
-    {
-        return $this->program;
-    }
-
-    /**
      * Set state
      *
      * @param string $state
@@ -328,6 +221,19 @@ class Pad
     }
 
     /**
+     * Set schoolYear
+     *
+     * @param string $schoolYear
+     * @return Pad
+     */
+    public function setSchoolYear($schoolYear)
+    {
+        $this->schoolYear = $schoolYear;
+    
+        return $this;
+    }
+
+    /**
      * Get schoolYear
      *
      * @return string 
@@ -335,6 +241,75 @@ class Pad
     public function getSchoolYear()
     {
         return $this->schoolYear;
+    }
+
+    /**
+     * Set program
+     *
+     * @param \Ifensl\Bundle\PadManagerBundle\Entity\Program $program
+     * @return Pad
+     */
+    public function setProgram(\Ifensl\Bundle\PadManagerBundle\Entity\Program $program = null)
+    {
+        $this->program = $program;
+    
+        return $this;
+    }
+
+    /**
+     * Get program
+     *
+     * @return \Ifensl\Bundle\PadManagerBundle\Entity\Program 
+     */
+    public function getProgram()
+    {
+        return $this->program;
+    }
+
+    /**
+     * Set unit
+     *
+     * @param \Ifensl\Bundle\PadManagerBundle\Entity\Unit $unit
+     * @return Pad
+     */
+    public function setUnit(\Ifensl\Bundle\PadManagerBundle\Entity\Unit $unit = null)
+    {
+        $this->unit = $unit;
+    
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return \Ifensl\Bundle\PadManagerBundle\Entity\Unit 
+     */
+    public function getUnit()
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Set subject
+     *
+     * @param \Ifensl\Bundle\PadManagerBundle\Entity\Subject $subject
+     * @return Pad
+     */
+    public function setSubject(\Ifensl\Bundle\PadManagerBundle\Entity\Subject $subject = null)
+    {
+        $this->subject = $subject;
+    
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return \Ifensl\Bundle\PadManagerBundle\Entity\Subject 
+     */
+    public function getSubject()
+    {
+        return $this->subject;
     }
 
     /**
@@ -368,14 +343,5 @@ class Pad
     public function getPadUsers()
     {
         return $this->padUsers;
-    }
-
-    public function setPadUsers(ArrayCollection $padUsers)
-    {
-        foreach ($padUsers as $padUser) {
-            $padUser->addPad($this);
-        }
-
-        $this->padUsers = $padUsers;
     }
 }

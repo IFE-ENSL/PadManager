@@ -3,12 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/ifenslpadmanager/css/bootstrap.min.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/ifenslpadmanager/css/style.css') }}">
-        <script type="text/javascript" src="http://local.enslnavbar/nav.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}

@@ -2,38 +2,30 @@
 
 namespace Ifensl\Bundle\PadManagerBundle\Controller;
 
-use Ifensl\Bundle\PadManagerBundle\Entity\Pad;
-use Ifensl\Bundle\PadManagerBundle\Form\PadType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
+use Ifensl\Bundle\PadManagerBundle\Entity\Pad;
+use Ifensl\Bundle\PadManagerBundle\Form\PadCreationType;
 
 /**
  * Pad controller
  */
 class PadController extends Controller
 {
-    public static $ENTITIES_REPOSITORY_NAME_MAP = array(
-      'programs' => 'Program',
-      'subjects' => 'Subject',
-      'ues'      => 'UE'
-    );
-
     /**
      * Displays a form to create a new Pad
      *
-     * @Route("/new", name="ifensl_pad_new")
+     * @Route("/", name="ifensl_pad")
      * @Method("GET");
      * @Template()
      */
-    public function newPadAction()
+    public function indexAction()
     {
-        $form = $this->createForm(
-                new PadType(),
-                new Pad()
-        );
+        $form = $this->createForm(new PadCreationType(), new Pad());
+
         return array('form' => $form->createView());
     }
 
@@ -42,22 +34,33 @@ class PadController extends Controller
      *
      * @Route("/new", name="ifensl_pad_create")
      * @Method("POST");
+     * @Template("IfenslPadManagerBundle:Pad:index.html.twig")
      */
     public function createPadAction(Request $request)
     {
-        $form = $this->createForm(
-                new PadType(),
-                new Pad()
-        );
+        $form = $this->createForm(new PadType(), new Pad());
         $form->handleRequest($request);
         if ($form->isValid()) {
-            die("TODO");
-                    
-            // First we check if the user is registered. If not we create him.
-            // We must check if the pad isn't already created
-            
-            /*$pad = $form->getData();
-            var_dump($pad->getPadUsers()); die;*/
+            $pad = $form->getData();
+            $em = $this->getEntityManager('IfenslPadManagerBundle:Pad');
+            $em->persist($pad);
+            $em->flush();
+
+            die('Good');
         }
+
+        return array('form' => $form->createView());
+    }
+
+    /**
+     * Show a Pad
+     *
+     * @Route("/{token}", name="ifensl_pad_show")
+     * @Method("GET");
+     * @Template()
+     */
+    public function showAction()
+    {
+        die('todo');
     }
 }

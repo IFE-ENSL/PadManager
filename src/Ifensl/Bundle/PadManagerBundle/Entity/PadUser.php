@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Ifensl\Bundle\PadManagerBundle\Entity\PadUser
  *
  * @ORM\Entity
- * @ORM\Table(name="paduser")
+ * @ORM\Table(name="pad_user")
  */
 class PadUser
 {

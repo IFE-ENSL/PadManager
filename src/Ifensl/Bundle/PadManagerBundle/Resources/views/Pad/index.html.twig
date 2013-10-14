@@ -1,4 +1,4 @@
-{% extends "::base.html.twig" %}
+{% extends "IfenslPadManagerBundle::layout.html.twig" %}
 
 {% form_theme form 'IfenslPadManagerBundle:Form:fields.html.twig' %}
 
@@ -10,8 +10,12 @@
         <div class="content container">
             {{ form(form) }}
             <div class="mentions">
-                Nous recueillons des informations personnelles sur l'utilisation de votre cahier de cours.<br />
-                Pour en savoir plus sur l'utilisation de ses informations, veuillez consulter notre <span>charte de confidentialité.</span>
+                <p>
+                Nous recueillons des informations personnelles sur l'utilisation
+                de votre cahier de cours.<br />
+                Pour en savoir plus sur l'utilisation de ses informations,
+                veuillez consulter notre <a href="#">charte de confidentialité</a>.
+                </p>
             </div>
         </div>
     </div>
@@ -21,5 +25,8 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
+    <!--
     <script type="text/javascript" src="{{ asset('bundles/ifenslpadmanager/js/userFormCollection.js') }}"></script>
+    //-->
 {% endblock %}
