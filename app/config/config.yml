@@ -25,6 +25,8 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    globals:
+        navbar_js_url: %navbar_js_url%
 
 # Assetic Configuration
 assetic:

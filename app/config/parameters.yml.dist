@@ -12,4 +12,6 @@ parameters:
     mailer_password:   ~
 
     locale:            en
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            ThisTokenIsNotSoSecretChangeIt$
+
+    navbar_js_url:     http://navbar.local/nav.js
