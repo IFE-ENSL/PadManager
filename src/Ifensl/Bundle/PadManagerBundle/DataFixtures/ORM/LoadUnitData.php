@@ -4,20 +4,20 @@ namespace Ifensl\Bundle\PadManagerBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Ifensl\Bundle\PadManagerBundle\Entity\UE;
+use Ifensl\Bundle\PadManagerBundle\Entity\Unit;
 
-class LoadUEData implements FixtureInterface
+class LoadUnitData implements FixtureInterface
 {
     /**
      * {@inheritDoc}
      */
     public function load(ObjectManager $manager)
     {
-        $informatique = new UE();
+        $informatique = new Unit();
         $informatique->setName("Informatique");
         $manager->persist($informatique);
 
-        $general = new UE();
+        $general = new Unit();
         $general->setName("Général");
         $manager->persist($general);
 
