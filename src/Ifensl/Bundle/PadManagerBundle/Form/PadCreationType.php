@@ -16,10 +16,11 @@ class PadCreationType extends PadType
     {
         parent::buildForm($builder, $options);
         $builder
-          ->add('padUsers', 'collection')
-          ->add('program')
-          ->add('unit')
-          ->add('subject')
+            ->add('padUsers', 'collection')
+            ->add('program')
+            ->add('unit')
+            ->add('subject')
+            ->remove('state')
         ;
     }
 

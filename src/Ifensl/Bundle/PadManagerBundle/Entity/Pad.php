@@ -21,6 +21,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Pad
 {
+    const STATE_NEW      = "NEW";
+    const STATE_ENABLED  = "ENABLED";
+    const STATE_DISABLED = "DISABLED";
+
     /**
      * @var integer $id
      *
@@ -59,9 +63,9 @@ class Pad
     private $salt;
 
     /**
-     * @var string $schoolYear
+     * @var integer $schoolYear
      *
-     * @ORM\Column(name="school_year", type="string", length=255)
+     * @ORM\Column(name="school_year", type="integer")
      */
     private $schoolYear;
 
@@ -101,13 +105,32 @@ class Pad
     private $padUsers;
 
     /**
-     * Get pad user owner
+     * toString
      *
-     * @return PadUser 
+     * @return string
      */
-    public function getOwner()
+    public function __toString()
     {
-        return $this->padUsers[0];
+        return sprintf('%d %s %s %s',
+            $this->getSchoolYear(),
+            $this->getProgram(),
+            $this->getUnit(),
+            $this->getSubject()
+        );
+    }
+
+    /**
+     * Get States
+     *
+     * @return array
+     */
+    public static function getStates()
+    {
+        return array(
+            self::STATE_NEW      => self::STATE_NEW,
+            self::STATE_ENABLED  => self::STATE_ENABLED,
+            self::STATE_DISABLED => self::STATE_DISABLED,
+        );
     }
 
     /**
@@ -115,7 +138,18 @@ class Pad
      */
     public function __construct()
     {
+        $this->setState(self::STATE_NEW);
         $this->padUsers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get pad user owner
+     *
+     * @return PadUser 
+     */
+    public function getOwner()
+    {
+        return $this->padUsers[0];
     }
 
     /**
@@ -223,7 +257,7 @@ class Pad
     /**
      * Set schoolYear
      *
-     * @param string $schoolYear
+     * @param integer $schoolYear
      * @return Pad
      */
     public function setSchoolYear($schoolYear)
@@ -236,7 +270,7 @@ class Pad
     /**
      * Get schoolYear
      *
-     * @return string 
+     * @return integer 
      */
     public function getSchoolYear()
     {
