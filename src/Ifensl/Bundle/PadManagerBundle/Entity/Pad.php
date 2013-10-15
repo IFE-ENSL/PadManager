@@ -96,7 +96,7 @@ class Pad
     /**
      * @var array<PadUser>
      *
-     * @ORM\ManyToMany(targetEntity="PadUser", cascade={"all"})
+     * @ORM\ManyToMany(targetEntity="PadUser", cascade={"all"}, inversedBy="pads")
      * @ORM\JoinTable(name="pad_paduser",
      *     joinColumns={@ORM\JoinColumn(name="pad_id", referencedColumnName="id", onDelete="CASCADE")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")}
