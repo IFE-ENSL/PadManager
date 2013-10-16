@@ -21,6 +21,7 @@ class PadCreationType extends PadType
             ->add('unit')
             ->add('subject')
             ->remove('state')
+            ->remove('schoolYear')
         ;
     }
 

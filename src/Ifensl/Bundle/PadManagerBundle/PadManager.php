@@ -80,6 +80,34 @@ class PadManager
     }
 
     /**
+     * Get current schoolYear
+     * 
+     * @return integer
+     */
+    public function getCurrentSchoolYear()
+    {
+        $date = new \DateTime('now');
+        $month = intval($date->format('m'));
+        $year = intval($date->format('Y'));
+
+        if ($month <= 8) {
+            return $year-1;
+        } else {
+            return $year;
+        }
+    }
+
+    /**
+     * Set current schoolYear
+     * 
+     * @param Pad $pad
+     */
+    public function setCurrentSchoolYear(Pad $pad)
+    {
+        $pad->setSchoolYear($this->getCurrentSchoolYear());
+    }
+
+    /**
      * Create a Pad
      *
      * @param Pad $pad
@@ -87,8 +115,10 @@ class PadManager
     public function createPad(Pad $pad)
     {
         $this->generatePadTokens($pad);
+        $this->setCurrentSchoolYear($pad);
         $this->getEntityManager()->persist($pad);
         $this->getEntityManager()->flush();
+        $this->getMailer()->sendPadCreationMail($pad);
     }
 
     /**
@@ -99,7 +129,7 @@ class PadManager
      */
     public function invitePadUser(Pad $pad, PadUser $user)
     {
-
+        $this->getMailer()->sendInvitationMail($pad, $user);
     }
 
     /**
@@ -110,17 +140,17 @@ class PadManager
      */
     public function removePadUser(Pad $pad, PadUser $user)
     {
-
+        
     }
 
     /**
-     * Create a Pad
+     * Send Pad Token to a Pad User
      *
      * @param Pad $pad
      * @param PadUser $user
      */
     public function sendToUserPadToken(Pad $pad, PadUser $user)
     {
-
+        $this->getMailer()->sendTokenMail($pad, $user);
     }
 }
