@@ -13,13 +13,9 @@ class LoadProgramData implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $program1 = new Program();
-        $program1->setName("Programme 1");
-        $manager->persist($program1);
-
-        $program2 = new Program();
-        $program2->setName("Programme 2");
-        $manager->persist($program2);
+        $program = new Program();
+        $program->setName("Master Architecture de l'information");
+        $manager->persist($program);
 
         $manager->flush();
     }
