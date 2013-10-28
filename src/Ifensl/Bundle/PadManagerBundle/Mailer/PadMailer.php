@@ -60,10 +60,10 @@ class PadMailer
     public function sendCreatedMail(Pad $pad)
     {
         $message = \Swift_Message::newInstance()
+            ->setFrom('username@mail.com')
             ->setSubject('Un nouveau pad à été créer')
-            ->setTo($pad->getOwner()->getEmail())
-            ->setBody($this
-                ->getTwigEngine()
+            ->setTo($pad->getPadOwner()->getEmail())
+            ->setBody($this->getTwigEngine()
                 ->render('IfenslPadManagerBundle:Mail:created.txt.twig',
                     array('pad' => $pad)
                 )
@@ -82,10 +82,10 @@ class PadMailer
     public function sendInvitedMail(Pad $pad, PadUser $user)
     {
         $message = \Swift_Message::newInstance()
+            ->setFrom('username@mail.com')
             ->setSubject('Vous avez été invité à rejoindre un pad')
             ->setTo($user->getEmail())
-            ->setBody($this
-                ->getTwigEngine()
+            ->setBody($this->getTwigEngine()
                 ->render('IfenslPadManagerBundle:Mail:invited.txt.twig',
                     array('pad' => $pad)
                 )
@@ -103,10 +103,10 @@ class PadMailer
     public function sendLostMail(Pad $pad)
     {
         $message = \Swift_Message::newInstance()
+            ->setFrom('username@mail.com')
             ->setSubject('Récupération des identifiants')
             ->setTo($pad->getPadOwner()->getEmail())
-            ->setBody($this
-                ->getTwigEngine()
+            ->setBody($this->getTwigEngine()
                 ->render('IfenslPadManagerBundle:Mail:lost.txt.twig',
                     array('pad' => $pad)
                 )

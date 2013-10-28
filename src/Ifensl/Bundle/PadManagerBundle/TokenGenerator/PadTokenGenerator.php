@@ -27,7 +27,7 @@ class PadTokenGenerator
                 $pad->getProgram(),
                 $pad->getUnit(),
                 $pad->getSubject(),
-                $pad->getOwner(),
+                $pad->getPadOwner(),
                 $salt
             )),
             sprintf("%u", crc32($salt.$type))
