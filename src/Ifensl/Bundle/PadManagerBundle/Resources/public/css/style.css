@@ -72,6 +72,11 @@ footer .web-eco-picture
     border-top: 3px solid #8f7553;
 }
 
+/* Alert */
+.alert p {
+    margin: 0;
+}
+
 /* Form */
 
 .new-pad form
@@ -96,6 +101,7 @@ footer .web-eco-picture
     background: #2986dc;
 }
 
+/*
 form .entry
 {
     width: 305px;
@@ -204,6 +210,7 @@ form .delete_user
 {
     padding: 10px 0 0 0;
 }
+*/
 
 /* Mentions */
 

@@ -16,15 +16,18 @@ class PadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-          ->add('padUsers')
-          ->add('program')
-          ->add('unit')
-          ->add('subject')
-          ->add('schoolYear')
-          ->add('state', 'choice', array(
-              'choices' => Pad::getStates()
-          ))
-          ->add('save', 'submit')
+            ->add('padOwner', 'paduser')
+            ->add('padUsers', 'padusers')
+            ->add('program', null, array(
+                'required' => true
+            ))
+            ->add('unit', null, array(
+                'required' => true
+            ))
+            ->add('subject', null, array(
+                'required' => true
+            ))
+            ->add('save', 'submit')
         ;
     }
 

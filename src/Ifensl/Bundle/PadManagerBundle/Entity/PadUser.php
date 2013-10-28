@@ -32,9 +32,14 @@ class PadUser
     /**
      * @var string $name
      *
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false, unique=true)
      */
     private $email;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Pad", mappedBy="padOwner")
+     */
+    private $ownPads;
 
     /**
      * @ORM\ManyToMany(targetEntity="Pad", mappedBy="padUsers")
@@ -42,10 +47,23 @@ class PadUser
     private $pads;
 
     /**
-     * Constructor
+     * to string
+     *
+     * @return string
      */
-    public function __construct()
+    public function __toString()
     {
+        return $this->getEmail();
+    }
+
+    /**
+     * Constructor
+     *
+     * @param string $email
+     */
+    public function __construct($email = null)
+    {
+        $this->email = $email;
         $this->pads = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -90,9 +108,7 @@ class PadUser
      */
     public function addPad(\Ifensl\Bundle\PadManagerBundle\Entity\Pad $pad)
     {
-        if (!$this->pads->contains($pad)) {
-            $this->pads->add($pad);
-        }
+        $this->pads->add($pad);
 
         return $this;
     }
@@ -117,4 +133,37 @@ class PadUser
         return $this->pads;
     }
  
+
+    /**
+     * Add ownPads
+     *
+     * @param \Ifensl\Bundle\PadManagerBundle\Entity\Pad $ownPads
+     * @return PadUser
+     */
+    public function addOwnPad(\Ifensl\Bundle\PadManagerBundle\Entity\Pad $ownPads)
+    {
+        $this->ownPads[] = $ownPads;
+    
+        return $this;
+    }
+
+    /**
+     * Remove ownPads
+     *
+     * @param \Ifensl\Bundle\PadManagerBundle\Entity\Pad $ownPads
+     */
+    public function removeOwnPad(\Ifensl\Bundle\PadManagerBundle\Entity\Pad $ownPads)
+    {
+        $this->ownPads->removeElement($ownPads);
+    }
+
+    /**
+     * Get ownPads
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOwnPads()
+    {
+        return $this->ownPads;
+    }
 }

@@ -15,9 +15,16 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Ifensl\Bundle\PadManagerBundle\Entity\Pad
  *
- * @ORM\Table(name="pad")
  * @ORM\Entity()
- * @ORM\HasLifecycleCallbacks
+ * @ORM\Table(name="pad", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="pad", columns={
+ *         "school_year",
+ *         "program_id",
+ *         "unit_id",
+ *         "subject_id",
+ *         "owner_id"
+ *     })
+ * })
  */
 class Pad
 {
@@ -94,12 +101,20 @@ class Pad
     private $subject;
 
     /**
+     * @var PadUser
+     *
+     * @ORM\ManyToOne(targetEntity="PadUser", cascade={"all"}, inversedBy="ownPads")
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $padOwner;
+
+    /**
      * @var array<PadUser>
      *
      * @ORM\ManyToMany(targetEntity="PadUser", cascade={"all"}, inversedBy="pads")
-     * @ORM\JoinTable(name="pad_paduser",
+     * @ORM\JoinTable(name="pad_pad_user",
      *     joinColumns={@ORM\JoinColumn(name="pad_id", referencedColumnName="id", onDelete="CASCADE")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")}
+     *     inverseJoinColumns={@ORM\JoinColumn(name="pad_user_id", referencedColumnName="id", onDelete="CASCADE")}
      * )
      */
     private $padUsers;
@@ -347,26 +362,49 @@ class Pad
     }
 
     /**
-     * Add padUsers
+     * Set padOwner
      *
-     * @param \Ifensl\Bundle\PadManagerBundle\Entity\PadUser $padUsers
+     * @param \Ifensl\Bundle\PadManagerBundle\Entity\PadUser $padOwner
      * @return Pad
      */
-    public function addPadUser(\Ifensl\Bundle\PadManagerBundle\Entity\PadUser $padUsers)
+    public function setPadOwner(\Ifensl\Bundle\PadManagerBundle\Entity\PadUser $padOwner = null)
     {
-        $this->padUsers[] = $padUsers;
+        $this->padOwner = $padOwner;
     
         return $this;
     }
 
     /**
-     * Remove padUsers
+     * Get padOwner
      *
-     * @param \Ifensl\Bundle\PadManagerBundle\Entity\PadUser $padUsers
+     * @return \Ifensl\Bundle\PadManagerBundle\Entity\PadUser 
      */
-    public function removePadUser(\Ifensl\Bundle\PadManagerBundle\Entity\PadUser $padUsers)
+    public function getPadOwner()
     {
-        $this->padUsers->removeElement($padUsers);
+        return $this->padOwner;
+    }
+
+    /**
+     * Add padUser
+     *
+     * @param \Ifensl\Bundle\PadManagerBundle\Entity\PadUser $padUser
+     * @return Pad
+     */
+    public function addPadUser(\Ifensl\Bundle\PadManagerBundle\Entity\PadUser $padUser)
+    {
+        $this->padUsers[] = $padUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove padUser
+     *
+     * @param \Ifensl\Bundle\PadManagerBundle\Entity\PadUser $padUser
+     */
+    public function removePadUser(\Ifensl\Bundle\PadManagerBundle\Entity\PadUser $padUser)
+    {
+        $this->padUsers->removeElement($padUser);
     }
 
     /**

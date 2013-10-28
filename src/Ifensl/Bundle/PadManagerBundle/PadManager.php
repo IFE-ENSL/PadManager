@@ -11,10 +11,15 @@
 namespace Ifensl\Bundle\PadManagerBundle;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Collections\ArrayCollection;
 use Ifensl\Bundle\PadManagerBundle\TokenGenerator\PadTokenGenerator;
 use Ifensl\Bundle\PadManagerBundle\Mailer\PadMailer;
 use Ifensl\Bundle\PadManagerBundle\Entity\Pad;
 use Ifensl\Bundle\PadManagerBundle\Entity\PadUser;
+use Ifensl\Bundle\PadManagerBundle\Entity\Program;
+use Ifensl\Bundle\PadManagerBundle\Entity\Subject;
+use Ifensl\Bundle\PadManagerBundle\Entity\Unit;
+use Ifensl\Bundle\PadManagerBundle\Exception\PadAlreadyExistException;
 
 class PadManager
 {
@@ -92,33 +97,51 @@ class PadManager
 
         if ($month <= 8) {
             return $year-1;
-        } else {
-            return $year;
         }
-    }
 
-    /**
-     * Set current schoolYear
-     * 
-     * @param Pad $pad
-     */
-    public function setCurrentSchoolYear(Pad $pad)
-    {
-        $pad->setSchoolYear($this->getCurrentSchoolYear());
+        return $year;
     }
 
     /**
      * Create a Pad
      *
-     * @param Pad $pad
+     * @param PadUser $owner
+     * @param Program $program
+     * @param Unit $unit
+     * @param Subject $subject
+     * @return Pad $pad
      */
-    public function createPad(Pad $pad)
+    public function createPad(PadUser $owner, Program $program, Unit $unit, Subject $subject)
     {
+        $pad = $this
+            ->getEntityManager()
+            ->getRepository("IfenslPadManagerBundle:Pad")
+            ->findOneBy(array(
+                'padOwner'    => $owner->getId(),
+                'program'  => $program->getId(),
+                'unit'     => $unit->getId(),
+                'subject'  => $subject->getId()
+            ))
+        ;
+
+        if ($pad) {
+            throw new PadAlreadyExistException($pad);
+        }
+
+        $pad = new Pad();
+        $pad
+            ->setPadOwner($owner)
+            ->setSchoolYear($this->getCurrentSchoolYear())
+            ->setProgram($program)
+            ->setUnit($unit)
+            ->setSubject($subject)
+        ;
         $this->generatePadTokens($pad);
-        $this->setCurrentSchoolYear($pad);
         $this->getEntityManager()->persist($pad);
         $this->getEntityManager()->flush();
-        $this->getMailer()->sendPadCreationMail($pad);
+        //$this->getMailer()->sendOwnerMail($pad, $user);
+
+        return $pad;
     }
 
     /**
@@ -129,7 +152,11 @@ class PadManager
      */
     public function invitePadUser(Pad $pad, PadUser $user)
     {
-        $this->getMailer()->sendInvitationMail($pad, $user);
+        $pad->addPadUser($user);
+        $this->getEntityManager()->persist($pad);
+        $this->getEntityManager()->flush();
+
+        //$this->getMailer()->sendInvitationMail($pad, $user);
     }
 
     /**
@@ -141,16 +168,5 @@ class PadManager
     public function removePadUser(Pad $pad, PadUser $user)
     {
         
-    }
-
-    /**
-     * Send Pad Token to a Pad User
-     *
-     * @param Pad $pad
-     * @param PadUser $user
-     */
-    public function sendToUserPadToken(Pad $pad, PadUser $user)
-    {
-        $this->getMailer()->sendTokenMail($pad, $user);
     }
 }

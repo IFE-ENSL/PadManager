@@ -1,17 +1,42 @@
-{% block form_row %}
-{% spaceless %}
-    <div class="row-fluid">
-        {{ form_label(form) }}
-        {{ form_errors(form) }}
-        <div class="entry {% if attr.class is defined %}{{ attr.class }}{% endif %}">
-            <div class="corner pull-left">
-                <div class="icon"></div>
-            </div>
-            {{ form_widget(form) }}
-            <div class="corner pull-right">
-                <div class="drop-icon"></div>
-            </div>
-        </div>
-    </div>
-{% endspaceless %}
-{% endblock form_row %}
+{% block padusers_widget %}
+    {% spaceless %}
+        {{ block('collection_widget') }}
+    {% endspaceless %}
+
+    <script type="text/javascript">
+        var $addLink = $('<a href="#" class="btn btn-default add_link">Add</a>');
+        var $newLink = $('<div></div>').append($addLink);
+        var collectionHolder = $('.ifensl_paduser__padusers');
+
+        jQuery(document).ready(function() {
+            collectionHolder.append($newLink);
+
+            $addLink.on('click', function(e) {
+                e.preventDefault();
+                addForm(collectionHolder, $newLink);
+            });
+
+            collectionHolder.find('.paduser').each(function() {
+                addFormDeleteLink($(this));
+            });
+        });
+
+        function addForm(collectionHolder, $newLink) {
+            var prototype = collectionHolder.data('prototype');
+            var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+            var $newFormDiv = $('<div></div>').append(newForm);
+            $newLink.before($newFormDiv);
+            addFormDeleteLink($newFormDiv);
+        }
+
+        function addFormDeleteLink($formDiv) {
+            var $removeFormA = $('<a href="#" class="btn btn-default">Delete</a>');
+            $formDiv.append($removeFormA);
+
+            $removeFormA.on('click', function(e) {
+                e.preventDefault();
+                $formDiv.remove();
+            });
+        }
+    </script>
+{% endblock %}

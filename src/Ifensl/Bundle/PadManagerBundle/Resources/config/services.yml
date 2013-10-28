@@ -14,4 +14,13 @@ services:
             - @ifensl_pad_manager.pad_token_generator
             - @ifensl_pad_manager.pad_mailer
 
+    ifensl_pad_manager.form_type.paduser:
+        class: Ifensl\Bundle\PadManagerBundle\Form\PadUserType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type, alias: paduser }
 
+    ifensl_pad_manager.form_type.padusers:
+        class: Ifensl\Bundle\PadManagerBundle\Form\Type\PadUsersType
+        tags:
+            - { name: form.type, alias: padusers }

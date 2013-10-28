@@ -5,40 +5,59 @@ namespace Ifensl\Bundle\PadManagerBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use Ifensl\Bundle\PadManagerBundle\Form\Type\DataTransformer\PadUserToEmailTransformer;
 
 class PadUserType extends AbstractType
 {
+    /**
+     * @var ObjectManager
+     */
+    private $om;
+
+    /**
+     * @param ObjectManager $om
+     */
+    public function __construct(ObjectManager $om)
+    {
+        $this->om = $om;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $transformer = new PadUserToEmailTransformer($this->om);
+        $builder->addModelTransformer($transformer);
+/*
         $builder
-            ->add('email', 'text', array(
-                'label' => false,
-                'attr' => array(
-                    'placeholder' => 'courriel',
-                )
-            ))
+          ->add('email', 'email', array(
+              'required' => true,
+              'label' => 'courriel',
+              'attr' => array(
+                  'placeholder' => 'courriel',
+                  'class' => $this->getName()
+              )
+          ))
         ;
-    }
-    
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ifensl\Bundle\PadManagerBundle\Entity\PadUser'
-        ));
+*/
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
+     */
+    public function getParent()
+    {
+        return 'email';
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getName()
     {
-        return 'ifensl_padmanagerbundle_paduser';
+        return 'paduser';
     }
 }

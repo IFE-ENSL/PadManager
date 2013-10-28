@@ -3,6 +3,53 @@
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/ifenslpadmanager/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/ifenslpadmanager/css/style.css') }}">
+    <script type="text/javascript" src="{{ asset('bundles/ifenslpadmanager/js/jquery.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <header>
+        {% block header %}
+            {% if app.session.flashbag.has('success') %}
+            <div class="alert alert-success fade in">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="flash-notice">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if app.session.flashbag.has('info') %}
+            <div class="alert alert-info fade in">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {% for flashMessage in app.session.flashbag.get('info') %}
+                    <div class="flash-notice">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if app.session.flashbag.has('error') %}
+            <div class="alert alert-danger fade in">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {% for flashMessage in app.session.flashbag.get('error') %}
+                    <p>{{ flashMessage }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endblock %}
+    </header>
+
+    <div id="main">
+        {% block main %}{% endblock %}
+    </div>
+
+    <footer>
+        {% block footer %}{% endblock %}
+        <div class="web-eco-picture"></div>
+    </footer>
 {% endblock %}
 
 {% block javascripts %}
