@@ -139,7 +139,7 @@ class PadManager
         $this->generatePadTokens($pad);
         $this->getEntityManager()->persist($pad);
         $this->getEntityManager()->flush();
-        //$this->getMailer()->sendOwnerMail($pad, $user);
+        $this->sendOwnerMail($pad);
 
         return $pad;
     }
@@ -155,8 +155,38 @@ class PadManager
         $pad->addPadUser($user);
         $this->getEntityManager()->persist($pad);
         $this->getEntityManager()->flush();
+        $this->sendInvitationMail($pad, $user);
+    }
 
-        //$this->getMailer()->sendInvitationMail($pad, $user);
+    /**
+     * Send owner mail
+     *
+     * @param Pad $pad 
+     */
+    public function sendOwnerMail(Pad $pad)
+    {
+        $this->getMailer()->sendCreatedMail($pad);
+    }
+
+    /**
+     * Send PadUser invitation mail
+     *
+     * @param Pad $pad
+     * @param PadUser $user
+     */
+    public function sendInvitationMail(Pad $pad, PadUser $user)
+    {
+        $this->getMailer()->sendInvitedMail($pad, $user);
+    }
+
+    /**
+     * Send link lost mail
+     *
+     * @param Pad $pad 
+     */
+    public function sendLinkLostMail(Pad $pad)
+    {
+        $this->getMailer()->sendLostMail($pad);
     }
 
     /**
@@ -167,6 +197,6 @@ class PadManager
      */
     public function removePadUser(Pad $pad, PadUser $user)
     {
-        
+        die('todo');
     }
 }

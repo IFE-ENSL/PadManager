@@ -14,7 +14,7 @@
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 {% for flashMessage in app.session.flashbag.get('success') %}
                     <div class="flash-notice">
-                        {{ flashMessage }}
+                        <p>{% autoescape false %}{{ flashMessage }}{% endautoescape %}</p>
                     </div>
                 {% endfor %}
             </div>
@@ -25,7 +25,7 @@
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 {% for flashMessage in app.session.flashbag.get('info') %}
                     <div class="flash-notice">
-                        {{ flashMessage }}
+                        <p>{% autoescape false %}{{ flashMessage }}{% endautoescape %}</p>
                     </div>
                 {% endfor %}
             </div>
@@ -35,7 +35,7 @@
             <div class="alert alert-danger fade in">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 {% for flashMessage in app.session.flashbag.get('error') %}
-                    <p>{{ flashMessage }}</p>
+                    <p>{% autoescape false %}{{ flashMessage }}{% endautoescape %}</p>
                 {% endfor %}
             </div>
             {% endif %}

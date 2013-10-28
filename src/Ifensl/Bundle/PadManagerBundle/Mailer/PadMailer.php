@@ -52,62 +52,62 @@ class PadMailer
     }
 
     /**
-     * Send Token Mail
-     * 
-     * @param Pad $pad
-     */
-    public function sendTokenMail(Pad $pad, PadUser $user)
-    {
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Récupération des identifiants')
-            ->setTo($user->getEmail())
-            ->setBody($this
-                ->getTwigEngine()
-                ->renderView('IfenslPadManagerBundle:Mail:token.txt.twig',
-                    array('pad' => $pad)
-                )
-            )
-        ;
-
-        $this->getMailer()->send($message);
-    }
-
-    /**
-     * Send Invitation Mail
+     * Send created mail
      * 
      * @param Pad $pad
      * @param PadUser $user
      */
-    public function sendInvitationMail(Pad $pad, PadUser $user)
-    {
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Vous avez été invité à rejoindre un pad')
-            ->setTo($user->getEmail())
-            ->setBody($this
-                ->getTwigEngine()
-                ->renderView('IfenslPadManagerBundle:Mail:invite.txt.twig',
-                    array('pad' => $pad)
-                )
-            )
-        ;
-
-        $this->getMailer()->send($message);
-    }
-
-    /**
-     * Send Pad Creation Mail
-     * 
-     * @param Pad $pad
-     * @param PadUser $user
-     */
-    public function sendPadCreationMail(Pad $pad)
+    public function sendCreatedMail(Pad $pad)
     {
         $message = \Swift_Message::newInstance()
             ->setSubject('Un nouveau pad à été créer')
             ->setTo($pad->getOwner()->getEmail())
             ->setBody($this
                 ->getTwigEngine()
-                ->renderView('IfenslPadManagerBundle:Mail:padCreation.txt.twig',
+                ->render('IfenslPadManagerBundle:Mail:created.txt.twig',
+                    array('pad' => $pad)
+                )
+            )
+        ;
+
+        $this->getMailer()->send($message);
+    }
+
+    /**
+     * Send invited mail
+     * 
+     * @param Pad $pad
+     * @param PadUser $user
+     */
+    public function sendInvitedMail(Pad $pad, PadUser $user)
+    {
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Vous avez été invité à rejoindre un pad')
+            ->setTo($user->getEmail())
+            ->setBody($this
+                ->getTwigEngine()
+                ->render('IfenslPadManagerBundle:Mail:invited.txt.twig',
+                    array('pad' => $pad)
+                )
+            )
+        ;
+
+        $this->getMailer()->send($message);
+    }
+
+    /**
+     * Send lost mail
+     * 
+     * @param Pad $pad
+     */
+    public function sendLostMail(Pad $pad)
+    {
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Récupération des identifiants')
+            ->setTo($pad->getPadOwner()->getEmail())
+            ->setBody($this
+                ->getTwigEngine()
+                ->render('IfenslPadManagerBundle:Mail:lost.txt.twig',
                     array('pad' => $pad)
                 )
             )
@@ -117,4 +117,3 @@ class PadMailer
     }
 }
 
-            

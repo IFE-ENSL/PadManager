@@ -158,16 +158,6 @@ class Pad
     }
 
     /**
-     * Get pad user owner
-     *
-     * @return PadUser 
-     */
-    public function getOwner()
-    {
-        return $this->padUsers[0];
-    }
-
-    /**
      * Get id
      *
      * @return integer 

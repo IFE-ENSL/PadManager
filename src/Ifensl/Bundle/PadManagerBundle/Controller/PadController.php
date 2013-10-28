@@ -53,10 +53,17 @@ class PadController extends Controller
                     $newPad->getSubject()
                 );
             } catch (PadAlreadyExistException $pae) {
-                $this->get('session')->getFlashBag()->add(
-                    'error',
-                    $pae->getMessage()
-                );
+                $intentions = 'pad_link_lost';
+                $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken($intentions);
+
+                $this->get('session')->getFlashBag()->add('error', sprintf(
+                    'Le Pad souhaité a déjà été créé. Vous pouvez <a href="%s">demander le renvoi du lien</a> à l\'adresse %s',
+                    $this->generateUrl('ifensl_pad_link_lost', array(
+                        'id' => $pae->getPad()->getId(),
+                        'csrf_token' => $csrfToken
+                    )),
+                    $newPad->getPadOwner()
+                ));
 
                 return array('form' => $form->createView());
             }
@@ -64,18 +71,41 @@ class PadController extends Controller
             foreach ($newPad->getPadUsers() as $k => $padUser) {
                 $this->get('ifensl_pad_manager')->invitePadUser($pad, $padUser);
             }
-            $this->get('session')->getFlashBag()->add(
-                'success',
-                sprintf(
-                    'Votre pad à bien été créé, un email vient de vous être envoyé à l\'adresse %s contenant toutes les informations ...',
-                    $pad->getPadOwner()
-                )
-            );
+            $this->get('session')->getFlashBag()->add('success', sprintf(
+                'Votre pad à bien été créé, un email vient de vous être envoyé à l\'adresse %s contenant toutes les informations ...',
+                $pad->getPadOwner()
+            ));
 
             return $this->redirect($this->generateUrl('ifensl_pad'));
         }
 
         return array('form' => $form->createView());
+    }
+
+    /**
+     * Pad link lost
+     *
+     * @Route("/{id}/link-lost/{csrf_token}", name="ifensl_pad_link_lost")
+     * @ParamConverter("pad", class="IfenslPadManagerBundle:Pad")
+     * @Method("GET");
+     */
+    public function linkLostAction(Pad $pad, $csrf_token)
+    {
+        $intentions = 'pad_link_lost';
+        $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken($intentions);
+
+        if ($csrf_token != $csrfToken) {
+            throw $this->createNotFoundException();
+        }
+
+        $this->get('ifensl_pad_manager')->sendLinkLostMail($pad);
+        
+        $this->get('session')->getFlashBag()->add('success', sprintf(
+            'Un email vient de vous être renvoyé à l\'adresse %s contenant toutes les informations !',
+            $pad->getPadOwner()
+        ));
+
+        return $this->redirect($this->generateUrl('ifensl_pad'));
     }
 
     /**
