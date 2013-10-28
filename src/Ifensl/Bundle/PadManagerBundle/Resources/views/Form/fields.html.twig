@@ -4,9 +4,9 @@
     {% endspaceless %}
 
     <script type="text/javascript">
-        var $addLink = $('<a href="#" class="btn btn-default add_link">Add</a>');
-        var $newLink = $('<div></div>').append($addLink);
-        var collectionHolder = $('.ifensl_paduser__padusers');
+        var $addLink = jQuery('<a href="#" class="btn btn-default add_link">Add</a>');
+        var $newLink = jQuery('<div></div>').append($addLink);
+        var collectionHolder = jQuery('.ifensl_paduser__padusers');
 
         jQuery(document).ready(function() {
             collectionHolder.append($newLink);
@@ -23,14 +23,14 @@
 
         function addForm(collectionHolder, $newLink) {
             var prototype = collectionHolder.data('prototype');
-            var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
-            var $newFormDiv = $('<div></div>').append(newForm);
+            var $newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+            var $newFormDiv = jQuery('<div></div>').append($newForm);
             $newLink.before($newFormDiv);
             addFormDeleteLink($newFormDiv);
         }
 
         function addFormDeleteLink($formDiv) {
-            var $removeFormA = $('<a href="#" class="btn btn-default">Delete</a>');
+            var $removeFormA = jQuery('<a href="#" class="btn btn-default">Delete</a>');
             $formDiv.append($removeFormA);
 
             $removeFormA.on('click', function(e) {
