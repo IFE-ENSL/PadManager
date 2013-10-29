@@ -27,6 +27,9 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         navbar_js_url: %navbar_js_url%
+    form:
+        resources:
+            - 'IfenslPadManagerBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
