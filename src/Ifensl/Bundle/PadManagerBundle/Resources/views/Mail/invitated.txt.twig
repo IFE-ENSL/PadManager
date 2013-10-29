@@ -1,1 +1,7 @@
 Vous êtes invité à rejoindre le pad collaboratif à l'adresse suivante : servername.{{ pad.publicToken }}
+
+Program: {{ pad.program }}
+Subject: {{ pad.subject }}
+unit: {{ pad.unit }}
+
+{{ url('ifensl_pad_show_public', {'public_token', pad.publicToken)} }}

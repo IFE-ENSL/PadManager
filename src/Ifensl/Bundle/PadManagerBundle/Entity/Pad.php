@@ -25,6 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
  *         "owner_id"
  *     })
  * })
+ * @ORM\HasLifecycleCallbacks()
  */
 class Pad
 {
@@ -54,6 +55,13 @@ class Pad
      * @ORM\Column(name="public_token", type="string", length=255)
      */
     private $publicToken;
+
+    /**
+     * @var string $padId
+     *
+     * @ORM\Column(type="string", length=128, nullable=true, unique=true)
+     */
+    private $padId;
 
     /**
      * @var string $state
@@ -118,6 +126,43 @@ class Pad
      * )
      */
     private $padUsers;
+
+    /**
+     * @var createdAt
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var updatedAt
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * onCreate
+     *
+     * @ORM\PrePersist()
+     */
+    public function onCreate()
+    {
+        $date = new \DateTime('now');
+        $this->setCreatedAt($date);
+        $this->setUpdatedAt($date);
+    }
+
+    /**
+     * onUpdate
+     *
+     * @ORM\PreUpdate()
+     */
+    public function onUpdate()
+    {
+        $date = new \DateTime('now');
+        $this->setUpdatedAt($date);
+    }
 
     /**
      * toString
@@ -211,6 +256,29 @@ class Pad
     public function getPublicToken()
     {
         return $this->publicToken;
+    }
+
+    /**
+     * Set padId
+     *
+     * @param string $padId
+     * @return Pad
+     */
+    public function setPadId($padId)
+    {
+        $this->padId = $padId;
+    
+        return $this;
+    }
+
+    /**
+     * Get padId
+     *
+     * @return string 
+     */
+    public function getPadId()
+    {
+        return $this->padId;
     }
 
     /**
@@ -405,5 +473,51 @@ class Pad
     public function getPadUsers()
     {
         return $this->padUsers;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Pad
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Pad
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

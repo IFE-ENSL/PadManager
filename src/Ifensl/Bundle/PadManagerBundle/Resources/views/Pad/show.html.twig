@@ -1,0 +1,9 @@
+{% extends "IfenslPadManagerBundle::layout.html.twig" %}
+
+{% block header %}
+    <h1>{{ pad }}</h1>
+{% endblock %}
+
+{% block main %}
+    <iframe src="{{ etherpad_url }}/?showChat=true&showLineNumbers=true"></iframe>
+{% endblock %}

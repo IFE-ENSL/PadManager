@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ifensl\Bundle\PadManagerBundle\TokenGenerator\PadTokenGenerator;
 use Ifensl\Bundle\PadManagerBundle\Mailer\PadMailer;
+use Da\ApiClientBundle\HttpClient\RestApiClientBridge;
 use Ifensl\Bundle\PadManagerBundle\Entity\Pad;
 use Ifensl\Bundle\PadManagerBundle\Entity\PadUser;
 use Ifensl\Bundle\PadManagerBundle\Entity\Program;
@@ -26,6 +27,7 @@ class PadManager
     protected $entityManager;
     protected $tokenGenerator;
     protected $mailer;
+    protected $etherpadApiClient;
 
     /**
      * Constructor
@@ -34,11 +36,12 @@ class PadManager
      * @param PadTokenGenerator $tokenGenerator
      * @param PadMailer $mailer
      */
-    public function __construct(EntityManager $entityManager, PadTokenGenerator $tokenGenerator, PadMailer $mailer)
+    public function __construct(EntityManager $entityManager, PadTokenGenerator $tokenGenerator, PadMailer $mailer, RestApiClientBridge $etherpadApiClient)
     {
-        $this->entityManager = $entityManager;
-        $this->tokenGenerator = $tokenGenerator;
-        $this->mailer = $mailer;
+        $this->entityManager     = $entityManager;
+        $this->tokenGenerator    = $tokenGenerator;
+        $this->mailer            = $mailer;
+        $this->etherpadApiClient = $etherpadApiClient;
     }
 
     /**
@@ -49,6 +52,25 @@ class PadManager
     protected function getEntityManager()
     {
         return $this->entityManager;
+    }
+
+    /**
+     * Get Repository
+     *
+     * @return \Doctrine\ORM\EntityManager\EntityRepository
+     */
+    public function getRepository()
+    {
+        return $this->getEntityManager()->getRepository("IfenslPadManagerBundle:Pad");
+    }
+
+    /**
+     * Magic call
+     * Triger to repository methods call
+     */
+    public function __call($method, $args)
+    {
+        return call_user_func_array(array($this->getRepository(), $method), $args);
     }
 
     /**
@@ -69,6 +91,16 @@ class PadManager
     protected function getMailer()
     {
         return $this->mailer;
+    }
+
+    /**
+     * Get therpadApiClient
+     *
+     * @return RestApiClientBridge
+     */
+    protected function getEtherpadApiClient()
+    {
+        return $this->etherpadApiClient;
     }
 
     /**
@@ -102,6 +134,11 @@ class PadManager
         return $year;
     }
 
+    public function createOwnerSession()
+    {
+        
+    }
+
     /**
      * Create a Pad
      *
@@ -113,16 +150,12 @@ class PadManager
      */
     public function createPad(PadUser $owner, Program $program, Unit $unit, Subject $subject)
     {
-        $pad = $this
-            ->getEntityManager()
-            ->getRepository("IfenslPadManagerBundle:Pad")
-            ->findOneBy(array(
-                'padOwner'    => $owner->getId(),
-                'program'  => $program->getId(),
-                'unit'     => $unit->getId(),
-                'subject'  => $subject->getId()
-            ))
-        ;
+        $pad = $this->findOneBy(array(
+            'padOwner' => $owner->getId(),
+            'program'  => $program->getId(),
+            'unit'     => $unit->getId(),
+            'subject'  => $subject->getId()
+        ));
 
         if ($pad) {
             throw new PadAlreadyExistException($pad);
@@ -137,8 +170,12 @@ class PadManager
             ->setSubject($subject)
         ;
         $this->generatePadTokens($pad);
+
+        $this->getEtherpadApiClient()->createNewPad($pad);
+
         $this->getEntityManager()->persist($pad);
         $this->getEntityManager()->flush();
+
         $this->sendOwnerMail($pad);
 
         return $pad;

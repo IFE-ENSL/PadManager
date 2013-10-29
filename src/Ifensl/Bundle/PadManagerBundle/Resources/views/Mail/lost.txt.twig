@@ -1,1 +1,7 @@
 Identifiants perdus
+
+Program: {{ pad.program|raw }}
+Subject: {{ pad.subject|raw }}
+unit: {{ pad.unit|raw }}
+
+{{ url('ifensl_pad_show_private', {'private_token': pad.privateToken}) }}

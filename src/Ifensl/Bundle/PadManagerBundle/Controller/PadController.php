@@ -89,7 +89,7 @@ class PadController extends Controller
      * @ParamConverter("pad", class="IfenslPadManagerBundle:Pad")
      * @Method("GET");
      */
-    public function linkLostAction(Pad $pad, $csrf_token)
+    public function linkLostAction(Request $request, Pad $pad, $csrf_token)
     {
         $intentions = 'pad_link_lost';
         $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken($intentions);
@@ -99,7 +99,6 @@ class PadController extends Controller
         }
 
         $this->get('ifensl_pad_manager')->sendLinkLostMail($pad);
-        
         $this->get('session')->getFlashBag()->add('success', sprintf(
             'Un email vient de vous être renvoyé à l\'adresse %s contenant toutes les informations !',
             $pad->getPadOwner()
@@ -109,14 +108,54 @@ class PadController extends Controller
     }
 
     /**
-     * Show a Pad
+     * Show a private Pad
      *
-     * @Route("/{token}", name="ifensl_pad_show")
+     * @Route("/private/{private_token}", name="ifensl_pad_show_private")
      * @Method("GET");
-     * @Template()
+     * @Template("IfenslPadManagerBundle:Pad:show.html.twig")
      */
-    public function showAction()
+    public function showPrivateAction(Request $request, $private_token)
     {
-        die('todo');
+        $pad = $this->get('ifensl_pad_manager')->findOneBy(array(
+            'privateToken' => $private_token
+        ));
+
+        if (!$pad) {
+            throw $this->createNotFoundException();
+        }
+
+        $this->get('ifensl_pad_manager')->createOwnerSession($pad);
+
+        $etherpadConfiguration = $this->container->getParameter('ifensl_pad_manager.etherpad');
+
+        return array(
+            'etherpad_url' => $etherpadConfiguration['url'],
+            'pad'          => $pad
+        );
+    }
+
+    /**
+     * Show a public Pad
+     *
+     * @Route("/public/{public_token}", name="ifensl_pad_show_public")
+     * @Method("GET");
+     * @Template("IfenslPadManagerBundle:Pad:show.html.twig")
+     */
+    public function showPublicAction(Request $request, $public_token)
+    {
+        $pad = $this->get('ifensl_pad_manager')->findOneBy(array(
+            'publicToken' => $public_token
+        ));
+
+        if (!$pad) {
+            throw $this->createNotFoundException();
+        }
+
+        $etherpadConfiguration = $this->container->getParameter('ifensl_pad_manager.etherpad');
+
+        return array(
+            'etherpad_url' => $etherpadConfiguration['url'],
+            'pad'          => $pad
+        );
     }
 }

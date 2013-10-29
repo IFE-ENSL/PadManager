@@ -22,16 +22,14 @@ class PadTokenGenerator
      */
     public function generateToken(Pad $pad, $type, $salt = null)
     {
-        return sprintf("%s__%s",
-            sha1(sprintf("%s%s%s%s%s",
-                $pad->getProgram(),
-                $pad->getUnit(),
-                $pad->getSubject(),
-                $pad->getPadOwner(),
-                $salt
-            )),
-            sprintf("%u", crc32($salt.$type))
-        );
+        return sha1(sprintf("%s%s%s%s%s%s",
+            $pad->getProgram(),
+            $pad->getUnit(),
+            $pad->getSubject(),
+            $pad->getPadOwner(),
+            $type,
+            $salt
+        ));
     }
 
     /**

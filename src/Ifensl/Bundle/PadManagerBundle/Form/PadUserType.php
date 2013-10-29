@@ -31,18 +31,6 @@ class PadUserType extends AbstractType
     {
         $transformer = new PadUserToEmailTransformer($this->om);
         $builder->addModelTransformer($transformer);
-/*
-        $builder
-          ->add('email', 'email', array(
-              'required' => true,
-              'label' => 'courriel',
-              'attr' => array(
-                  'placeholder' => 'courriel',
-                  'class' => $this->getName()
-              )
-          ))
-        ;
-*/
     }
 
     /**

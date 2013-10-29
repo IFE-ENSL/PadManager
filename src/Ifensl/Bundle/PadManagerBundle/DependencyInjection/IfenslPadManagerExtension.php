@@ -24,5 +24,10 @@ class IfenslPadManagerExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->setParameter(
+            'ifensl_pad_manager.etherpad',
+            $config['etherpad']
+        );
     }
 }

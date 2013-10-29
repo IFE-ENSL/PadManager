@@ -13,11 +13,13 @@ namespace Ifensl\Bundle\PadManagerBundle\Mailer;
 use Ifensl\Bundle\PadManagerBundle\Entity\Pad;
 use Ifensl\Bundle\PadManagerBundle\Entity\PadUser;
 use Symfony\Bundle\TwigBundle\TwigEngine;
+use Ifensl\Bundle\PadManagerBundle\Etherpad\EtherpadManager;
 
 class PadMailer
 {
     protected $mailer;
     protected $twigEngine;
+    protected $etherPadManager;
 
     /**
      * Constructor

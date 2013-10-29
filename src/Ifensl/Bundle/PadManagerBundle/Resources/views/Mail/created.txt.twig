@@ -1,1 +1,7 @@
 Un nouveau pad à été créé
+
+Program: {{ pad.program }}
+Subject: {{ pad.subject }}
+unit: {{ pad.unit }}
+
+{{ url('ifensl_pad_show_private', {'private_token': pad.privateToken}) }}

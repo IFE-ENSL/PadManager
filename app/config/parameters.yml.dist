@@ -10,8 +10,12 @@ parameters:
     mailer_host:       127.0.0.1
     mailer_user:       ~
     mailer_password:   ~
+    mailer_auth_mode:  ~
+    mailer_port:       ~
+    mailer_encryption: ~
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt$
 
-    navbar_js_url:     http://navbar.local/nav.js
+    navbar_js_url:     http://ecoweb.ens-lyon.fr/navbar/web/app.php/nav.js
+    etherpad_url:      http://ecoweb.ens-lyon.fr/carnet-cours
