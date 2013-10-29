@@ -45,4 +45,30 @@ class EtherpadApiClient extends RestApiClientBridge
             var_dump($e->getMessage()); die;
         }
     }
+
+    /**
+     * Create a pad owner session
+     *
+     * @param Pad $pad
+     * @return string
+     */
+    public function createPadOwnerSession(Pad $pad)
+    {
+        $date = new \DateTime('now');
+        $date->modify('+1 day');
+
+        try {
+            $data = $this->get('/1/createSession', array(
+                'apikey'     => $this->implementor->getSecurityToken(),
+                'groupID'    => $pad->getPadOwner()->getGroupId(),
+                'authorID'   => $pad->getPadOwner()->getAuthorId(),
+                'validUntil' => $date->getTimestamp()
+            ));
+            $apiData = json_decode($data, true);
+
+            return $apiData['data']['sessionID'];
+        } catch (\Da\AuthCommonBundle\Exception\ApiHttpResponseException $e) {
+            var_dump($e->getMessage()); die;
+        }
+    }
 }

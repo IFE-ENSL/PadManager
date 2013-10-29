@@ -5,5 +5,5 @@
 {% endblock %}
 
 {% block main %}
-    <iframe src="{{ etherpad_url }}/?showChat=true&showLineNumbers=true"></iframe>
+    <iframe src="{{ etherpad_url }}/p/{{ pad.privateToken }}?showChat=true&showLineNumbers=true&lang=fr"></iframe>
 {% endblock %}

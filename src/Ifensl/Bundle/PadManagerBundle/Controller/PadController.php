@@ -7,7 +7,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Ifensl\Bundle\PadManagerBundle\Entity\Pad;
 use Ifensl\Bundle\PadManagerBundle\Form\PadType;
 use Ifensl\Bundle\PadManagerBundle\Exception\PadAlreadyExistException;
@@ -112,7 +114,6 @@ class PadController extends Controller
      *
      * @Route("/private/{private_token}", name="ifensl_pad_show_private")
      * @Method("GET");
-     * @Template("IfenslPadManagerBundle:Pad:show.html.twig")
      */
     public function showPrivateAction(Request $request, $private_token)
     {
@@ -124,14 +125,19 @@ class PadController extends Controller
             throw $this->createNotFoundException();
         }
 
-        $this->get('ifensl_pad_manager')->createOwnerSession($pad);
+        $sessionId = $this->get('ifensl_pad_manager')->createOwnerSession($pad);
+
+        $response = new Response();
+        $response->headers->setCookie(new Cookie('sessionID', $sessionId));
+        //$response->headers->set('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 
         $etherpadConfiguration = $this->container->getParameter('ifensl_pad_manager.etherpad');
-
-        return array(
+        $response->setContent($this->renderView("IfenslPadManagerBundle:Pad:show.html.twig", array(
             'etherpad_url' => $etherpadConfiguration['url'],
             'pad'          => $pad
-        );
+        )));
+
+        return $response;
     }
 
     /**

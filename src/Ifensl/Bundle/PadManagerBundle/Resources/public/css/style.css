@@ -24,7 +24,8 @@ body
 
 iframe
 {
-    width: 100%;
+    width: 95%;
+    margin: 0 2%;
     min-height: 600px;
 }
 
@@ -40,7 +41,7 @@ header
 
 header h1
 {
-    font-size: 60px;
+    font-size: 50px;
     font-family: lobster;
     line-height: 200px;
     text-align: center;
@@ -70,6 +71,7 @@ footer .web-eco-picture
     background: url('../images/content-background.png') repeat;
     border-bottom: 3px solid #8f7553;
     border-top: 3px solid #8f7553;
+    overflow: hidden;
 }
 
 /* Alert */

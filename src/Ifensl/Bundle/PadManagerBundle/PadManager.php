@@ -134,9 +134,15 @@ class PadManager
         return $year;
     }
 
-    public function createOwnerSession()
+    /**
+     * Create an owner session
+     *
+     * @param Pad $pad
+     * @return string
+     */
+    public function createOwnerSession(Pad $pad)
     {
-        
+        return $this->getEtherpadApiClient()->createPadOwnerSession($pad);
     }
 
     /**
