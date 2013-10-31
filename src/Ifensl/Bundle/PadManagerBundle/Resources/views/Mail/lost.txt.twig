@@ -1,7 +1,8 @@
-Identifiants perdus
+Il semblerait que vous ayez perdu l'accès au pad correspondant aux informations suivantes:
 
-Program: {{ pad.program|raw }}
-Subject: {{ pad.subject|raw }}
-unit: {{ pad.unit|raw }}
+Programme: {{ pad.program|raw }}
+Matière: {{ pad.subject|raw }}
+Unité d'enseignement: {{ pad.unit|raw }}
 
+Cliquez sur le lien ci-dessous pour y accéder:
 {{ url('ifensl_pad_show_private', {'private_token': pad.privateToken}) }}

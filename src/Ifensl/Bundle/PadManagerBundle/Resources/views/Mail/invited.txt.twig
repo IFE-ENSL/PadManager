@@ -1,0 +1,8 @@
+Vous êtes invité à rejoindre le pad collaboratif correspondant aux informations suivantes:
+
+Programme: {{ pad.program|raw }}
+Matière: {{ pad.subject|raw }}
+Unité d'enseignement: {{ pad.unit|raw }}
+
+Cliquez sur le lien ci-dessous pour y accéder:
+{{ url('ifensl_pad_show_public', {'public_token': pad.publicToken}) }}

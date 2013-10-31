@@ -1,7 +1,8 @@
-Un nouveau pad à été créé
+Un nouveau pad correspondant aux informations suivantes à été créer:
 
-Program: {{ pad.program }}
-Subject: {{ pad.subject }}
-unit: {{ pad.unit }}
+Programme: {{ pad.program|raw }}
+Matière: {{ pad.subject|raw }}
+Unité d'enseignement: {{ pad.unit|raw }}
 
+Cliquez sur le lien ci-dessous pour y accéder:
 {{ url('ifensl_pad_show_private', {'private_token': pad.privateToken}) }}
