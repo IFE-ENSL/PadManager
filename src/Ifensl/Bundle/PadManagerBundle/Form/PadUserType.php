@@ -34,6 +34,18 @@ class PadUserType extends AbstractType
     }
 
     /**
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'attr' => array(
+                'placeHolder' => 'courriel'
+            )
+        ));
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getParent()

@@ -19,7 +19,6 @@ services:
             - @ifensl_pad_manager.pad_mailer
             - @da_api_client.api.etherpad
 
-
     ifensl_pad_manager.form_type.paduser:
         class: Ifensl\Bundle\PadManagerBundle\Form\PadUserType
         arguments: ["@doctrine.orm.entity_manager"]

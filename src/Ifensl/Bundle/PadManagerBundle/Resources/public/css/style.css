@@ -87,9 +87,89 @@ footer .web-eco-picture
     margin: 20px auto 0;
 }
 
+.new-pad form select:focus
+{
+    outline: none;
+}
+
+.new-pad form input:focus:invalid:focus,
+.new-pad form select:focus:invalid:focus {
+    box-shadow: none;
+}
+
+/* Form > Icons on label */
+.new-pad form label
+{
+    font-size: 0;
+    height: 20px;
+    width: 20px;
+    float: left;
+    margin: 5px 10px 5px 15px;
+}
+
+.new-pad form label[for="ifensl_padmanagerbundle_pad_padOwner"],
+.new-pad form #ifensl_padmanagerbundle_pad_padUsers label { background: url('../images/sprite.png') no-repeat 0px 0px; }
+.new-pad form label[for="ifensl_padmanagerbundle_pad_program"] { background: url('../images/sprite.png') no-repeat -20px 0px; }
+.new-pad form label[for="ifensl_padmanagerbundle_pad_unit"] { background: url('../images/sprite.png') no-repeat -40px 0px; }
+.new-pad form label[for="ifensl_padmanagerbundle_pad_subject"] { background: url('../images/sprite.png') no-repeat -60px 0px; }
+
+.new-pad form input,
+.new-pad form select {
+    background: #e5e5e5;
+    border: none;
+}
+
+/* Form > content div */
+.new-pad form #ifensl_padmanagerbundle_pad > div,
+.new-pad form #ifensl_padmanagerbundle_pad_padUsers > div > div
+{
+    margin: 20px 0;
+    background: #e5e5e5;
+    border-radius: 20px;
+    height: 30px;
+    width: 280px;
+}
+
+/* Form > content of padUsers & submit */
+.new-pad form #ifensl_padmanagerbundle_pad > div:nth-child(2),
+.new-pad form #ifensl_padmanagerbundle_pad > div:nth-child(6)
+{
+    background: none;
+    height: auto;
+}
+
+/* Global "Pad Users" label */
+.new-pad form #ifensl_padmanagerbundle_pad > div:nth-child(2) > label
+{
+    display: none;
+}
+
+.new-pad form #ifensl_padmanagerbundle_pad_padUsers,
+.new-pad form #ifensl_padmanagerbundle_pad_padUsers > div
+{
+    position: relative;
+}
+
+.new-pad form #ifensl_padmanagerbundle_pad_padUsers div.add-link
+{
+    position: absolute;
+    left: 300px;
+    top: -55px;
+    margin: 5px 0;
+}
+
+.new-pad form #ifensl_padmanagerbundle_pad_padUsers div.remove-link
+{
+    background: none;
+    position: absolute;
+    left: 300px;
+    top: -20px;
+}
+
+/* Form > button */
 .new-pad form button
 {
-    background-image:linear-gradient(#eeeeee, #dddddd);
+    background-image: linear-gradient(#eeeeee, #dddddd);
     margin-left: 200px;
     border-radius: 15px;
     border: none;
@@ -102,117 +182,6 @@ footer .web-eco-picture
     color: #fff;
     background: #2986dc;
 }
-
-/*
-form .entry
-{
-    width: 305px;
-}
-
-form #ifensl_padmanagerbundle_pad > .row-fluid
-{
-    position: relative;
-    margin: 15px 0;
-}
-
-form #ifensl_padmanagerbundle_pad_padUsers .row-fluid .entry .entry .corner,
-form .row-fluid .entry.ue .corner,
-form .row-fluid .entry.subject .corner,
-form .row-fluid .entry.program .corner
-{
-    width: 40px;
-    height: 30px;
-    position: relative;
-}
-
-form #ifensl_padmanagerbundle_pad_padUsers .row-fluid .entry .entry .corner.pull-left,
-form .row-fluid .entry.program .corner.pull-left,
-form .row-fluid .entry.subject .corner.pull-left,
-form .row-fluid .entry.ue .corner.pull-left
-{
-    border-radius: 15px 0 0 15px;
-    background-image:linear-gradient(#eeeeee, #dddddd);
-}
-
-form select,
-form #ifensl_padmanagerbundle_pad_padUsers .row-fluid .entry .entry input
-{
-    margin: 0;
-    border-radius: 0 15px 15px 0;
-    color: #2986dc;
-    -webkit-appearance: none;
-    padding: 0 0 0 20px;
-    background-image:linear-gradient(#eeeeee, #dddddd);
-    border: none;
-}
-
-form #ifensl_padmanagerbundle_pad_padUsers .row-fluid .entry .entry input
-{
-    padding: 5px 0 5px 15px;
-}
-
-form select:focus
-{
-    border: none;
-    outline-offset: 0;
-    outline: none;
-}
-
-form #ifensl_padmanagerbundle_pad_padUsers .row-fluid .entry .entry .icon,
-form .entry .icon
-{
-    position: absolute;
-    top: 5px;
-    left: 15px;
-    height: 20px;
-    width: 20px;
-}
-
-form .entry.program .icon
-{
-    background: url('../images/sprite.png') no-repeat -20px 0px;
-}
-
-form .entry.ue .icon
-{
-    background: url('../images/sprite.png') no-repeat -40px 0px;
-}
-
-form .entry.subject .icon
-{
-    background: url('../images/sprite.png') no-repeat -60px 0px;
-}
-
-form #ifensl_padmanagerbundle_pad_padUsers .entry .entry .icon
-{
-    background: url('../images/sprite.png') no-repeat 0px 0px;
-}
-
-form div.add_user
-{
-    border-radius: 15px;
-    position: absolute;
-    top: 5px;
-    left: 280px;
-    background: #e5e5e5;
-    width: 30px;
-    height: 30px;
-}
-
-form div.add_user a.add_user_link
-{
-    display: inline-block;
-    background: url('../images/sprite.png') no-repeat -120px 0px;
-    width: 20px;
-    height: 20px;
-    margin: 5px;
-}
-
-form .delete_user
-{
-    padding: 10px 0 0 0;
-}
-*/
 
 /* Mentions */
 

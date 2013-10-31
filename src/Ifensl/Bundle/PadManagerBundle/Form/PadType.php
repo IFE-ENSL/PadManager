@@ -19,13 +19,16 @@ class PadType extends AbstractType
             ->add('padOwner', 'paduser')
             ->add('padUsers', 'padusers')
             ->add('program', null, array(
-                'required' => true
+                'required' => true,
+                'empty_value' => 'Programme'
             ))
             ->add('unit', null, array(
-                'required' => true
+                'required' => true,
+                'empty_value' => 'UE'
             ))
             ->add('subject', null, array(
-                'required' => true
+                'required' => true,
+                'empty_value' => 'Matière'
             ))
             ->add('save', 'submit')
         ;
