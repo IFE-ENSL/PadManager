@@ -30,7 +30,9 @@ class PadType extends AbstractType
                 'required' => true,
                 'empty_value' => 'Matière'
             ))
-            ->add('save', 'submit')
+            ->add('save', 'submit', array(
+                'label' => 'Créer'
+            ))
         ;
     }
 

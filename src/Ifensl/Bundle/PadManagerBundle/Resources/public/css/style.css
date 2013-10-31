@@ -130,9 +130,8 @@ footer .web-eco-picture
     width: 280px;
 }
 
-/* Form > content of padUsers & submit */
-.new-pad form #ifensl_padmanagerbundle_pad > div:nth-child(2),
-.new-pad form #ifensl_padmanagerbundle_pad > div:nth-child(6)
+/* Form > content of padUsers */
+.new-pad form #ifensl_padmanagerbundle_pad > div:nth-child(2)
 {
     background: none;
     height: auto;
@@ -150,12 +149,30 @@ footer .web-eco-picture
     position: relative;
 }
 
+/* Form > Add & Remove links */
 .new-pad form #ifensl_padmanagerbundle_pad_padUsers div.add-link
 {
     position: absolute;
     left: 300px;
     top: -55px;
     margin: 5px 0;
+    background: #e5e5e5;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+.new-pad form #ifensl_padmanagerbundle_pad_padUsers div.add-link a
+{
+    display: block;
+    font-size: 0;
+    width: 20px;
+    height: 20px;
+    background: url('../images/sprite.png') no-repeat -120px 0px;
+}
+
+.new-pad form #ifensl_padmanagerbundle_pad_padUsers div.add-link:hover
+{
+    background: #fff;
 }
 
 .new-pad form #ifensl_padmanagerbundle_pad_padUsers div.remove-link
@@ -167,20 +184,21 @@ footer .web-eco-picture
 }
 
 /* Form > button */
-.new-pad form button
+
+.new-pad form #ifensl_padmanagerbundle_pad > div:nth-child(6)
 {
-    background-image: linear-gradient(#eeeeee, #dddddd);
-    margin-left: 200px;
-    border-radius: 15px;
-    border: none;
-    padding: 5px 10px;
-    color: #2986dc;
+    width: 100px;
+    margin-left: 180px;
 }
 
-.new-pad form button:hover
+.new-pad form button
 {
-    color: #fff;
-    background: #2986dc;
+    height: 31px;
+    line-height: 31px;
+    border: none;
+    color: #2986dc;
+    text-indent: 42px;
+    background: url('../images/createButton.png') no-repeat 20px 6px;
 }
 
 /* Mentions */
