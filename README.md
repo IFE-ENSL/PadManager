@@ -173,3 +173,14 @@ Configure your database parameters in the `app/config/parameters.yml` file (if y
 ```sh
 php app/console doctrine:schema:update --force
 ```
+
+7) Load the fixtures
+--------------------
+
+Some fixtures are ready to be loaded in database.
+
+To load them, run the command
+
+```sh
+php app/console doctrine:fixtures:load
+```
