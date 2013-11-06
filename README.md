@@ -17,12 +17,9 @@ git clone https://github.com/IFE-ENSL/PadManager.git
 2) Installing the Standard Edition
 ----------------------------------
 
-When it comes to installing the Symfony Standard Edition, you have the
-following options.
+Use Composer (*recommended*)
 
-### Use Composer (*recommended*)
-
-As Symfony uses [Composer][2] to manage its dependencies, the recommended way
+As Symfony uses Composer to manage its dependencies, the recommended way
 to create a new project is to use it.
 
 If you don't have Composer yet, download it following the instructions on
@@ -32,31 +29,7 @@ http://getcomposer.org/ or just run the following command:
 curl -s http://getcomposer.org/installer | php
 ```
 
-Then, use the `create-project` command to generate a new Symfony application:
-
-```sh
-php composer.phar create-project symfony/framework-standard-edition path/to/install
-```
-
-Composer will install Symfony and all its dependencies under the
-`path/to/install` directory.
-
-### Download an Archive File
-
-To quickly test Symfony, you can also download an [archive][3] of the Standard
-Edition and unpack it somewhere under your web server root directory.
-
-If you downloaded an archive "without vendors", you also need to install all
-the necessary dependencies. Download composer (see above) and run the
-following command:
-
-```sh
-php composer.phar install
-```
-
-### Install application vendors
-
-Go inside the cloned folder and use Composer to install all the application dependencies
+Then, go inside the cloned folder and use Composer to install all the application dependencies
 
 ```sh
 php composer.phar update
@@ -165,10 +138,10 @@ Set the rights permissions:
 $ chown www-data -R app/cache/ app/logs/ && chmod 775 -R app/cache/ app/logs/
 ```
 
-6) Update the database
+6) Create & Update the database
 ----------------------
 
-Configure your database parameters in the `app/config/parameters.yml` file (if you did not do it at the end of the `php composer.phar update` command) then run
+First, create a MySQL database and configure your database parameters (database name, database user and password) in the `app/config/parameters.yml` file (if you did not do it at the end of the `php composer.phar update` command) then run
 
 ```sh
 php app/console doctrine:schema:update --force
