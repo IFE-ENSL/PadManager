@@ -13,9 +13,11 @@ parameters:
     mailer_auth_mode:  ~
     mailer_port:       ~
     mailer_encryption: ~
+    mailer_from:       ecoweb@ens-lyon.fr
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt$
 
     navbar_js_url:     http://ecoweb.ens-lyon.fr/navbar/web/app.php/nav.js
-    etherpad_url:      http://ecoweb.ens-lyon.fr/carnet-cours
+    etherpad_url:      http://ecoweb.ens-lyon.fr/etherpad
+    etherpad_security_token: 'taAhKt43ylIvAgZzs1z6M2ng9oWJvSnN'

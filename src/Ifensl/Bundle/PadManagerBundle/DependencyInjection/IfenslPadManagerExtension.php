@@ -29,5 +29,9 @@ class IfenslPadManagerExtension extends Extension
             'ifensl_pad_manager.etherpad',
             $config['etherpad']
         );
+        $container->setParameter(
+            'ifensl_pad_manager.mailer',
+            $config['mailer']
+        );
     }
 }

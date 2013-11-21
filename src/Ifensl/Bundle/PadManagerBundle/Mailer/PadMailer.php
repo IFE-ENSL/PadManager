@@ -20,17 +20,20 @@ class PadMailer
     protected $mailer;
     protected $twigEngine;
     protected $etherPadManager;
+    protected $mailerConfiguration;
 
     /**
      * Constructor
      *
      * @param Swift_Mailer $mailer
      * @param TwigEngine $twigEngine
+     * @param array $mailerConfiguration
      */
-    public function __construct(\Swift_Mailer $mailer, TwigEngine $twigEngine)
+    public function __construct(\Swift_Mailer $mailer, TwigEngine $twigEngine, $mailerConfiguration)
     {
         $this->mailer = $mailer;
         $this->twigEngine = $twigEngine;
+        $this->mailerConfiguration = $mailerConfiguration;
     }
 
     /**
@@ -54,6 +57,25 @@ class PadMailer
     }
 
     /**
+     * Get Mailer configuration
+     *
+     * @param string | null $key
+     * @return mixed | null
+     */
+    protected function getMailerConfiguration($key = null)
+    {
+        if (null === $key) {
+            return $this->mailerConfiguration;
+        }
+
+        if (isset($this->mailerConfiguration[$key])) {
+            return $this->mailerConfiguration[$key];
+        }
+
+        return null;
+    }
+
+    /**
      * Send created mail
      * 
      * @param Pad $pad
@@ -62,7 +84,7 @@ class PadMailer
     public function sendCreatedMail(Pad $pad)
     {
         $message = \Swift_Message::newInstance()
-            ->setFrom('username@mail.com')
+            ->setFrom($this->getMailerConfiguration('from'))
             ->setSubject('Un nouveau pad à été créer')
             ->setTo($pad->getPadOwner()->getEmail())
             ->setBody($this->getTwigEngine()
@@ -84,7 +106,7 @@ class PadMailer
     public function sendInvitedMail(Pad $pad, PadUser $user)
     {
         $message = \Swift_Message::newInstance()
-            ->setFrom('username@mail.com')
+            ->setFrom($this->getMailerConfiguration('from'))
             ->setSubject('Vous avez été invité à rejoindre un pad')
             ->setTo($user->getEmail())
             ->setBody($this->getTwigEngine()
@@ -105,7 +127,7 @@ class PadMailer
     public function sendLostMail(Pad $pad)
     {
         $message = \Swift_Message::newInstance()
-            ->setFrom('username@mail.com')
+            ->setFrom($this->getMailerConfiguration('from'))
             ->setSubject('Récupération des identifiants')
             ->setTo($pad->getPadOwner()->getEmail())
             ->setBody($this->getTwigEngine()

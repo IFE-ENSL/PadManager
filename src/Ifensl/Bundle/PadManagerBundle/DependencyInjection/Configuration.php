@@ -31,6 +31,12 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('url')->isRequired()->cannotBeEmpty()->end()
                     ->end()
                 ->end()
+                ->arrayNode('mailer')
+                    ->isRequired()
+                    ->children()
+                        ->scalarNode('from')->isRequired()->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 

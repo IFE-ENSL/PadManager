@@ -78,7 +78,7 @@ da_api_client:
     api:
         etherpad:
             endpoint_root: %etherpad_url%/api
-            security_token: taAhKt43ylIvAgZzs1z6M2ng9oWJvSnN
+            security_token: %etherpad_security_token%
             client:
                 service: ifensl_pad_mananger.etherpad_api_client
 
@@ -86,3 +86,5 @@ da_api_client:
 ifensl_pad_manager:
     etherpad:
         url: %etherpad_url%
+    mailer:
+        from: %mailer_from%

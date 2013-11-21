@@ -5,7 +5,7 @@ services:
 
     ifensl_pad_manager.pad_mailer:
         class: Ifensl\Bundle\PadManagerBundle\Mailer\PadMailer
-        arguments: [@mailer, @templating]
+        arguments: [@mailer, @templating, %ifensl_pad_manager.mailer%]
 
     ifensl_pad_mananger.etherpad_api_client:
         class: Ifensl\Bundle\PadManagerBundle\HttpClient\EtherpadApiClient
