@@ -1,0 +1,19 @@
+{% extends "IfenslPadManagerBundle::layout.html.twig" %}
+
+{% block header %}
+    {{ parent() }}
+    <h1>Cahier de cours</h1>
+{% endblock %}
+
+{% block main %}
+    <div class="content container new-pad">
+        <div class="mentions">
+            <p>
+                Nous recueillons des informations personnelles sur l'utilisation
+                de votre cahier de cours...<br />
+                Cette page est en cours de rédaction...<br />
+                <a href="{{ path('ifensl_pad') }}">Revenir à la fenêtre de création de pads</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

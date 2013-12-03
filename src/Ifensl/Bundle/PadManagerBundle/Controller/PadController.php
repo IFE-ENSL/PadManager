@@ -34,6 +34,18 @@ class PadController extends Controller
     }
 
     /**
+     * Displays the privacy terms
+     *
+     * @Route("/privacy", name="ifensl_pad_privacy")
+     * @Method("GET");
+     * @Template()
+     */
+    public function privacyAction()
+    {
+        return array();
+    }
+    
+    /**
      * Create a new Pad
      *
      * @Route("/create", name="ifensl_pad_create")
