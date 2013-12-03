@@ -36,17 +36,16 @@ iframe
 /* Header */
 header
 {
-    height: 200px;
+    height: 150px;
 }
 
 header h1
 {
     font-size: 50px;
     font-family: lobster;
-    line-height: 200px;
+    line-height: 150px;
     text-align: center;
     color: #2986dc;
-    height: 200px;
     margin: 0;
 }
 
