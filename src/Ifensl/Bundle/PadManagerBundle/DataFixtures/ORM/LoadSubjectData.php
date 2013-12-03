@@ -25,6 +25,11 @@ class LoadSubjectData implements FixtureInterface
         $algebre->setName("Algèbre");
         $manager->persist($algebre);
 
+        $prisDeNote = new Subject();
+        $prisDeNote->setName("Prise de notes");
+        $manager->persist($prisDeNote);
+
+        
         $manager->flush();
     }
 }
