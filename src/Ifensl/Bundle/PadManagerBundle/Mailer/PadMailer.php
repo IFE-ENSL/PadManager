@@ -13,7 +13,6 @@ namespace Ifensl\Bundle\PadManagerBundle\Mailer;
 use Ifensl\Bundle\PadManagerBundle\Entity\Pad;
 use Ifensl\Bundle\PadManagerBundle\Entity\PadUser;
 use Symfony\Bundle\TwigBundle\TwigEngine;
-use Ifensl\Bundle\PadManagerBundle\Etherpad\EtherpadManager;
 
 class PadMailer
 {
@@ -133,6 +132,27 @@ class PadMailer
             ->setBody($this->getTwigEngine()
                 ->render('IfenslPadManagerBundle:Mail:lost.txt.twig',
                     array('pad' => $pad)
+                )
+            )
+        ;
+
+        $this->getMailer()->send($message);
+    }
+
+    /**
+     * Send pad list mail
+     * 
+     * @param PadUser $padUser
+     */
+    public function sendPadListMail(PadUser $padUser)
+    {
+        $message = \Swift_Message::newInstance()
+            ->setFrom($this->getMailerConfiguration('from'))
+            ->setSubject('Liste de vos pads')
+            ->setTo($padUser->getEmail())
+            ->setBody($this->getTwigEngine()
+                ->render('IfenslPadManagerBundle:Mail:list.txt.twig',
+                    array('padUser' => $padUser)
                 )
             )
         ;

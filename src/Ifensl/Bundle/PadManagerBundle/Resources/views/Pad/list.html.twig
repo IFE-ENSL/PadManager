@@ -1,0 +1,12 @@
+{% extends "IfenslPadManagerBundle::layout.html.twig" %}
+
+{% block header %}
+    {{ parent() }}
+    <h1>Cahier de cours</h1>
+{% endblock %}
+
+{% block main %}
+    <div class="content container list-pad">
+        {% include "IfenslPadManagerBundle:Pad:listContent.html.twig" %}
+    </div>
+{% endblock %}

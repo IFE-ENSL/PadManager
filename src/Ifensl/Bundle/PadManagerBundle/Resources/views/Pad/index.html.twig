@@ -18,5 +18,13 @@
                 veuillez consulter notre <a href="{{ path('ifensl_pad_privacy') }}">charte de confidentialité</a>.
             </p>
         </div>
+        <div class="links">
+             <a class="ajax-ready" href="{{ path('ifensl_pad_list') }}">Récupérer la liste des pads</a>
+        </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/ifenslpadmanager/js/loadListModal.js') }}"></script>
 {% endblock %}

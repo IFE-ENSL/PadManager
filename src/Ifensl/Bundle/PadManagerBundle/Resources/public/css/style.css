@@ -36,7 +36,7 @@ iframe
 /* Header */
 header
 {
-    height: 150px;
+    min-height: 150px;
 }
 
 header h1
@@ -217,11 +217,49 @@ footer .web-eco-picture
 
 .new-pad .mentions
 {
-    padding: 20px 0;
     text-align: center;
     font-family: lobster;
 }
+
 .new-pad .mentions a
 {
     color: #fff;
+}
+
+/* Links */
+.new-pad .links
+{
+    text-align: center;
+    font-family: lobster;
+    padding-bottom: 15px;
+}
+
+.new-pad .links a
+{
+    color: #fff;
+}
+
+/**
+ * List pad
+ */
+.list-pad
+{
+    margin: 20px auto 0;
+    text-align: center;
+}
+
+.list-pad form button
+{
+    height: 31px;
+    line-height: 0px;
+    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    color: #2986dc;
+}
+
+.list-pad form label
+{
+    display: inline-block;
+    margin-right: 10px;
 }

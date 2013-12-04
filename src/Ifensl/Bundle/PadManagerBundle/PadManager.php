@@ -104,6 +104,28 @@ class PadManager
     }
 
     /**
+     * Get a padUser
+     * 
+     * @param string $email
+     * @return PadUser $padUser
+     */
+    public function getPadUser($email)
+    {
+        $padUser = $this
+            ->getEntityManager()
+            ->getRepository("IfenslPadManagerBundle:PadUser")
+            ->findOneBy(array('email' => $email ))
+        ;
+
+        if ($padUser) {
+            return $padUser;
+        }
+
+        return null;
+    }
+
+
+    /**
      * Generate pad tokens
      *
      * @param Pad $pad
@@ -209,6 +231,16 @@ class PadManager
     public function sendOwnerMail(Pad $pad)
     {
         $this->getMailer()->sendCreatedMail($pad);
+    }
+
+    /**
+     * Send list mail
+     *
+     * @param PadUser $padUser 
+     */
+    public function sendListMail(PadUser $padUser)
+    {
+        $this->getMailer()->sendPadListMail($padUser);
     }
 
     /**

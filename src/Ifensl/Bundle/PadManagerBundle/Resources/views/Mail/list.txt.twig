@@ -1,0 +1,16 @@
+Voici la liste de vos pads:
+
+- Pads dont vous êtes propriétaires:
+{% for pad in padUser.ownPads %}
+    Programme: {{ pad.program|raw }}, Matière: {{ pad.subject|raw }}, Unité d'enseignement: {{ pad.unit|raw }}, url {{ url('ifensl_pad_show_public', {'public_token': pad.privateToken}) }}
+{% else %}
+    Aucun pad
+{% endfor %}
+
+- Pads dont vous êtes invités:
+{% for pad in padUser.pads %}
+    Programme: {{ pad.program|raw }}, Matière: {{ pad.subject|raw }}, Unité d'enseignement: {{ pad.unit|raw }}, url {{ url('ifensl_pad_show_public', {'public_token': pad.privateToken}) }}
+{% else %}
+    Aucun pad
+{% endfor %}
+

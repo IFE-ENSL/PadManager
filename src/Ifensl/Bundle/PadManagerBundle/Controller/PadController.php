@@ -11,7 +11,9 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Ifensl\Bundle\PadManagerBundle\Entity\Pad;
+use Ifensl\Bundle\PadManagerBundle\Entity\PadUser;
 use Ifensl\Bundle\PadManagerBundle\Form\PadType;
+use Ifensl\Bundle\PadManagerBundle\Form\PadUserType;
 use Ifensl\Bundle\PadManagerBundle\Exception\PadAlreadyExistException;
 
 /**
@@ -119,6 +121,68 @@ class PadController extends Controller
         ));
 
         return $this->redirect($this->generateUrl('ifensl_pad'));
+    }
+
+    /**
+     * Displays the form used to send a list of all pads attached to a user
+     *
+     * @Route("/form-list", name="ifensl_pad_list")
+     * @Method("GET");
+     * @Template()
+     */
+    public function listAction(Request $request)
+    {
+        $form = $this->createListForm();
+        if($request->isXmlHttpRequest()) {
+            return $this->render("IfenslPadManagerBundle:Pad:listContent.html.twig", array('form' => $form->createView()));
+        }
+
+        return array('form' => $form->createView());
+    }
+
+    /**
+     * Send a list of all pads attached to a user
+     *
+     * @Route("/send-list", name="ifensl_pad_list_send")
+     * @Method("POST");
+     * @Template("IfenslPadManagerBundle:Pad:list.html.twig")
+     */
+    public function sendListAction(Request $request)
+    {
+        $form = $this->createListForm();
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $data = $form->getData();
+            $padUser = $this->get('ifensl_pad_manager')->getPadUser($data['email']);
+            if (!$padUser) {
+                $this->get('session')->getFlashBag()->add('error', 
+                    sprintf("Il n'y a aucun pad de créé pour l'utilisateur à l'adresse %s", $data['email'])
+                );
+
+                return $this->redirect($this->generateUrl('ifensl_pad_list'));
+            } else {
+                $this->get('ifensl_pad_manager')->sendListMail($padUser);
+                $this->get('session')->getFlashBag()->add('success', 
+                    sprintf("Un email vient de vous être renvoyé à l'adresse %s contenant toutes les informations !", $padUser->getEmail())
+                );
+
+                return $this->redirect($this->generateUrl('ifensl_pad'));
+            }
+        }
+    }
+
+    /**
+     * Create the form used to send a list of all pads attached to a user
+     */
+    private function createListForm()
+    {
+        return $this
+            ->createFormBuilder()
+            ->add('email', 'email', array('label' => 'Courriel'))
+            ->add('valider', 'submit')
+            ->getForm()
+        ;
     }
 
     /**
