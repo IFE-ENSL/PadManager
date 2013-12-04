@@ -73,7 +73,7 @@ class PadController extends Controller
                 $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken($intentions);
 
                 $this->get('session')->getFlashBag()->add('error', sprintf(
-                    'Le Pad souhaité a déjà été créé. Vous pouvez <a href="%s">demander le renvoi du lien</a> à l\'adresse %s',
+                    "Le Pad souhaité a déjà été créé. Vous pouvez <a href='%s'>demander le renvoi du lien</a> à l'adresse %s",
                     $this->generateUrl('ifensl_pad_link_lost', array(
                         'id' => $pae->getPad()->getId(),
                         'csrf_token' => $csrfToken
@@ -88,7 +88,7 @@ class PadController extends Controller
                 $this->get('ifensl_pad_manager')->invitePadUser($pad, $padUser);
             }
             $this->get('session')->getFlashBag()->add('success', sprintf(
-                'Votre pad à bien été créé, un email vient de vous être envoyé à l\'adresse %s contenant toutes les informations ...',
+                "Votre pad à bien été créé, un courriel vient de vous être envoyé à l'adresse %s contenant toutes les informations ...",
                 $pad->getPadOwner()
             ));
 
@@ -116,7 +116,7 @@ class PadController extends Controller
 
         $this->get('ifensl_pad_manager')->sendLinkLostMail($pad);
         $this->get('session')->getFlashBag()->add('success', sprintf(
-            'Un email vient de vous être renvoyé à l\'adresse %s contenant toutes les informations !',
+            "Un courriel vient de vous être renvoyé à l'adresse %s contenant toutes les informations !",
             $pad->getPadOwner()
         ));
 
@@ -164,7 +164,7 @@ class PadController extends Controller
             } else {
                 $this->get('ifensl_pad_manager')->sendListMail($padUser);
                 $this->get('session')->getFlashBag()->add('success', 
-                    sprintf("Un email vient de vous être renvoyé à l'adresse %s contenant toutes les informations !", $padUser->getEmail())
+                    sprintf("Un courriel vient de vous être renvoyé à l'adresse %s contenant toutes les informations !", $padUser->getEmail())
                 );
 
                 return $this->redirect($this->generateUrl('ifensl_pad'));
