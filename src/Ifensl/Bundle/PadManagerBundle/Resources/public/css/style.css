@@ -148,6 +148,19 @@ footer .web-eco-picture
     position: relative;
 }
 
+/* Title input */
+.new-pad form label[for="ifensl_padmanagerbundle_pad_title"]
+{
+    font-size: 12px;
+}
+
+#ifensl_padmanagerbundle_pad_title
+{
+    background: #fff;
+    height: 22px;
+    border-radius: 0px;
+}
+
 /* Form > Add & Remove links */
 .new-pad form #ifensl_padmanagerbundle_pad_padUsers div.add-link
 {

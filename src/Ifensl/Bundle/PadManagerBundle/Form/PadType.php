@@ -26,9 +26,8 @@ class PadType extends AbstractType
                 'required' => true,
                 'empty_value' => 'UE'
             ))
-            ->add('subject', null, array(
-                'required' => true,
-                'empty_value' => 'Matière'
+            ->add('title', null, array(
+                'label' => 'Titre'
             ))
             ->add('save', 'submit', array(
                 'label' => 'Créer'

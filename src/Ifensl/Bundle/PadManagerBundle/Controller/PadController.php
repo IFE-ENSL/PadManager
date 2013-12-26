@@ -66,7 +66,7 @@ class PadController extends Controller
                     $newPad->getPadOwner(),
                     $newPad->getProgram(),
                     $newPad->getUnit(),
-                    $newPad->getSubject()
+                    $newPad->getTitle()
                 );
             } catch (PadAlreadyExistException $pae) {
                 $intentions = 'pad_link_lost';
@@ -188,13 +188,14 @@ class PadController extends Controller
     /**
      * Show a private Pad
      *
-     * @Route("/private/{private_token}", name="ifensl_pad_show_private")
+     * @Route("/private/{private_token}/{title}", name="ifensl_pad_show_private")
      * @Method("GET");
      */
-    public function showPrivateAction(Request $request, $private_token)
+    public function showPrivateAction(Request $request, $private_token, $title)
     {
         $pad = $this->get('ifensl_pad_manager')->findOneBy(array(
-            'privateToken' => $private_token
+            'privateToken' => $private_token,
+            'title'        => $title
         ));
 
         if (!$pad) {
@@ -219,14 +220,15 @@ class PadController extends Controller
     /**
      * Show a public Pad
      *
-     * @Route("/public/{public_token}", name="ifensl_pad_show_public")
+     * @Route("/public/{public_token}/{title}", name="ifensl_pad_show_public")
      * @Method("GET");
      * @Template("IfenslPadManagerBundle:Pad:show.html.twig")
      */
-    public function showPublicAction(Request $request, $public_token)
+    public function showPublicAction(Request $request, $public_token, $title)
     {
         $pad = $this->get('ifensl_pad_manager')->findOneBy(array(
-            'publicToken' => $public_token
+            'publicToken' => $public_token,
+            'title'       => $title
         ));
 
         if (!$pad) {

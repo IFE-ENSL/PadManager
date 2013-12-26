@@ -11,14 +11,12 @@
 namespace Ifensl\Bundle\PadManagerBundle;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\Common\Collections\ArrayCollection;
 use Ifensl\Bundle\PadManagerBundle\TokenGenerator\PadTokenGenerator;
 use Ifensl\Bundle\PadManagerBundle\Mailer\PadMailer;
 use Da\ApiClientBundle\HttpClient\RestApiClientBridge;
 use Ifensl\Bundle\PadManagerBundle\Entity\Pad;
 use Ifensl\Bundle\PadManagerBundle\Entity\PadUser;
 use Ifensl\Bundle\PadManagerBundle\Entity\Program;
-use Ifensl\Bundle\PadManagerBundle\Entity\Subject;
 use Ifensl\Bundle\PadManagerBundle\Entity\Unit;
 use Ifensl\Bundle\PadManagerBundle\Exception\PadAlreadyExistException;
 
@@ -173,16 +171,16 @@ class PadManager
      * @param PadUser $owner
      * @param Program $program
      * @param Unit $unit
-     * @param Subject $subject
+     * @param string $title
      * @return Pad $pad
      */
-    public function createPad(PadUser $owner, Program $program, Unit $unit, Subject $subject)
+    public function createPad(PadUser $owner, Program $program, Unit $unit, $title)
     {
         $pad = $this->findOneBy(array(
             'padOwner' => $owner->getId(),
             'program'  => $program->getId(),
             'unit'     => $unit->getId(),
-            'subject'  => $subject->getId()
+            'title'    => $title
         ));
 
         if ($pad) {
@@ -195,7 +193,7 @@ class PadManager
             ->setSchoolYear($this->getCurrentSchoolYear())
             ->setProgram($program)
             ->setUnit($unit)
-            ->setSubject($subject)
+            ->setTitle($title)
         ;
         $this->generatePadTokens($pad);
 

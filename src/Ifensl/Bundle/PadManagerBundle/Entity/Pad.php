@@ -21,7 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
  *         "school_year",
  *         "program_id",
  *         "unit_id",
- *         "subject_id",
+ *         "title",
  *         "owner_id"
  *     })
  * })
@@ -93,20 +93,19 @@ class Pad
     private $program;
 
     /**
+     * @var string $title
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
+
+    /**
      * @var Unit
      *
      * @ORM\ManyToOne(targetEntity="Unit", inversedBy="pads")
      * @ORM\JoinColumn(name="unit_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $unit;
-
-    /**
-     * @var Subject
-     *
-     * @ORM\ManyToOne(targetEntity="Subject", inversedBy="pads")
-     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id", onDelete="SET NULL")
-     */
-    private $subject;
 
     /**
      * @var PadUser
@@ -175,7 +174,7 @@ class Pad
             $this->getSchoolYear(),
             $this->getProgram(),
             $this->getUnit(),
-            $this->getSubject()
+            $this->getTitle()
         );
     }
 
@@ -397,26 +396,26 @@ class Pad
     }
 
     /**
-     * Set subject
+     * Set title
      *
-     * @param \Ifensl\Bundle\PadManagerBundle\Entity\Subject $subject
+     * @param string $title
      * @return Pad
      */
-    public function setSubject(\Ifensl\Bundle\PadManagerBundle\Entity\Subject $subject = null)
+    public function setTitle($title)
     {
-        $this->subject = $subject;
-    
+        $this->title = $title;
+
         return $this;
     }
 
     /**
-     * Get subject
+     * Get title
      *
-     * @return \Ifensl\Bundle\PadManagerBundle\Entity\Subject 
+     * @return string $title
      */
-    public function getSubject()
+    public function getTitle()
     {
-        return $this->subject;
+        return $this->title;
     }
 
     /**

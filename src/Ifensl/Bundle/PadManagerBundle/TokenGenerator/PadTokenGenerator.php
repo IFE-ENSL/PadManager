@@ -25,8 +25,8 @@ class PadTokenGenerator
         return sha1(sprintf("%s%s%s%s%s%s",
             $pad->getProgram(),
             $pad->getUnit(),
-            $pad->getSubject(),
             $pad->getPadOwner(),
+            $pad->getTitle(),
             $type,
             $salt
         ));
