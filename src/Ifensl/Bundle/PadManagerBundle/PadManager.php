@@ -19,6 +19,7 @@ use Ifensl\Bundle\PadManagerBundle\Entity\PadUser;
 use Ifensl\Bundle\PadManagerBundle\Entity\Program;
 use Ifensl\Bundle\PadManagerBundle\Entity\Unit;
 use Ifensl\Bundle\PadManagerBundle\Exception\PadAlreadyExistException;
+use Ifensl\Bundle\PadManagerBundle\Utils\StringTools;
 
 class PadManager
 {
@@ -180,7 +181,7 @@ class PadManager
             'padOwner' => $owner->getId(),
             'program'  => $program->getId(),
             'unit'     => $unit->getId(),
-            'title'    => $title
+            'slug'     => StringTools::slugify($title)
         ));
 
         if ($pad) {
@@ -194,6 +195,7 @@ class PadManager
             ->setProgram($program)
             ->setUnit($unit)
             ->setTitle($title)
+            ->setSlug(StringTools::slugify($title))
         ;
         $this->generatePadTokens($pad);
 

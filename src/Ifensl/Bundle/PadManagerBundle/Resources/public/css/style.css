@@ -36,31 +36,17 @@ iframe
 /* Header */
 header
 {
-    min-height: 150px;
+    min-height: 75px;
 }
 
 header h1
 {
     font-size: 50px;
     font-family: lobster;
-    line-height: 150px;
+    line-height: 75px;
     text-align: center;
     color: #2986dc;
     margin: 0;
-}
-
-/* Footer */
-footer
-{
-    height: 300px;
-}
-
-footer .web-eco-picture
-{
-    background: url('../images/sprite.png') no-repeat 0px -70px;
-    width: 1000px;
-    height: 300px;
-    margin: 50px auto 0;
 }
 
 /* Content of the page */

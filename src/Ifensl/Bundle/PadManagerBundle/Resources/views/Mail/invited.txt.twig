@@ -5,4 +5,4 @@ Unité d'enseignement: {{ pad.unit|raw }}
 Titre: {{ pad.title|raw }}
 
 Cliquez sur le lien ci-dessous pour y accéder:
-{{ url('ifensl_pad_show_public', {'title': pad.title, 'public_token': pad.publicToken}) }}
+{{ url('ifensl_pad_show_public', {'slug': pad.slug, 'public_token': pad.publicToken}) }}

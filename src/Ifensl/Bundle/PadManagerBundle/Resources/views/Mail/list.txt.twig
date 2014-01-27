@@ -2,15 +2,14 @@ Voici la liste de vos pads:
 
 - Pads privés:
 {% for pad in padUser.ownPads %}
-    Programme: {{ pad.program|raw }}, Unité d'enseignement: {{ pad.unit|raw }}, Titre: {{ pad.title|raw }}, url {{ url('ifensl_pad_show_private', {'title': pad.title, 'private_token': pad.privateToken}) }}
+    Programme: {{ pad.program|raw }}, Unité d'enseignement: {{ pad.unit|raw }}, Titre: {{ pad.title|raw }}, url {{ url('ifensl_pad_show_private', {'slug': pad.slug, 'private_token': pad.privateToken}) }}
 {% else %}
     Aucun pad
 {% endfor %}
 
 - Pads partagés:
 {% for pad in padUser.pads %}
-    Programme: {{ pad.program|raw }}, Unité d'enseignement: {{ pad.unit|raw }}, Titre: {{ pad.title|raw }}, url {{ url('ifensl_pad_show_public', {'title': pad.title, 'public_token': pad.publicToken}) }}
+    Programme: {{ pad.program|raw }}, Unité d'enseignement: {{ pad.unit|raw }}, Titre: {{ pad.title|raw }}, url {{ url('ifensl_pad_show_public', {'slug': pad.slug, 'public_token': pad.publicToken}) }}
 {% else %}
     Aucun pad
 {% endfor %}
-

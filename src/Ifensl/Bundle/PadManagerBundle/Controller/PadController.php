@@ -11,9 +11,7 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Ifensl\Bundle\PadManagerBundle\Entity\Pad;
-use Ifensl\Bundle\PadManagerBundle\Entity\PadUser;
 use Ifensl\Bundle\PadManagerBundle\Form\PadType;
-use Ifensl\Bundle\PadManagerBundle\Form\PadUserType;
 use Ifensl\Bundle\PadManagerBundle\Exception\PadAlreadyExistException;
 
 /**
@@ -46,7 +44,7 @@ class PadController extends Controller
     {
         return array();
     }
-    
+
     /**
      * Create a new Pad
      *
@@ -188,14 +186,14 @@ class PadController extends Controller
     /**
      * Show a private Pad
      *
-     * @Route("/private/{private_token}/{title}", name="ifensl_pad_show_private")
+     * @Route("/private/{private_token}/{slug}", name="ifensl_pad_show_private")
      * @Method("GET");
      */
-    public function showPrivateAction(Request $request, $private_token, $title)
+    public function showPrivateAction($private_token, $slug)
     {
         $pad = $this->get('ifensl_pad_manager')->findOneBy(array(
             'privateToken' => $private_token,
-            'title'        => $title
+            'slug'        => $slug
         ));
 
         if (!$pad) {
@@ -220,15 +218,15 @@ class PadController extends Controller
     /**
      * Show a public Pad
      *
-     * @Route("/public/{public_token}/{title}", name="ifensl_pad_show_public")
+     * @Route("/public/{public_token}/{slug}", name="ifensl_pad_show_public")
      * @Method("GET");
      * @Template("IfenslPadManagerBundle:Pad:show.html.twig")
      */
-    public function showPublicAction(Request $request, $public_token, $title)
+    public function showPublicAction(Request $request, $public_token, $slug)
     {
         $pad = $this->get('ifensl_pad_manager')->findOneBy(array(
             'publicToken' => $public_token,
-            'title'       => $title
+            'slug'       => $slug
         ));
 
         if (!$pad) {

@@ -100,6 +100,13 @@ class Pad
     private $title;
 
     /**
+     * @var string $slug
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
      * @var Unit
      *
      * @ORM\ManyToOne(targetEntity="Unit", inversedBy="pads")
@@ -393,6 +400,29 @@ class Pad
     public function getUnit()
     {
         return $this->unit;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Pad
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string $slug
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
