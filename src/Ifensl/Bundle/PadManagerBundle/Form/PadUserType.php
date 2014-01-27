@@ -40,7 +40,7 @@ class PadUserType extends AbstractType
     {
         $resolver->setDefaults(array(
             'attr' => array(
-                'placeHolder' => 'courriel'
+                'placeHolder' => 'Courriel'
             )
         ));
     }

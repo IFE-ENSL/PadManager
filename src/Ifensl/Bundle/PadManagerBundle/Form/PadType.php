@@ -27,7 +27,8 @@ class PadType extends AbstractType
                 'empty_value' => 'UE'
             ))
             ->add('title', null, array(
-                'label' => 'Titre'
+                'label' => 'Titre',
+                'attr' => array('placeholder' => 'Entrez un titre ici')
             ))
             ->add('save', 'submit', array(
                 'label' => 'Créer'

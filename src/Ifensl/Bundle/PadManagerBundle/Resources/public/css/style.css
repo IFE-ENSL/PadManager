@@ -96,7 +96,7 @@ header h1
 .new-pad form #ifensl_padmanagerbundle_pad_padUsers label { background: url('../images/sprite.png') no-repeat 0px 0px; }
 .new-pad form label[for="ifensl_padmanagerbundle_pad_program"] { background: url('../images/sprite.png') no-repeat -20px 0px; }
 .new-pad form label[for="ifensl_padmanagerbundle_pad_unit"] { background: url('../images/sprite.png') no-repeat -40px 0px; }
-.new-pad form label[for="ifensl_padmanagerbundle_pad_subject"] { background: url('../images/sprite.png') no-repeat -60px 0px; }
+.new-pad form label[for="ifensl_padmanagerbundle_pad_title"] { background: url('../images/sprite.png') no-repeat -60px 0px; }
 
 .new-pad form input,
 .new-pad form select {
@@ -132,19 +132,6 @@ header h1
 .new-pad form #ifensl_padmanagerbundle_pad_padUsers > div
 {
     position: relative;
-}
-
-/* Title input */
-.new-pad form label[for="ifensl_padmanagerbundle_pad_title"]
-{
-    font-size: 12px;
-}
-
-#ifensl_padmanagerbundle_pad_title
-{
-    background: #fff;
-    height: 22px;
-    border-radius: 0px;
 }
 
 /* Form > Add & Remove links */
