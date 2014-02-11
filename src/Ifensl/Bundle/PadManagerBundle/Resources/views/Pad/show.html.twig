@@ -1,7 +1,10 @@
 {% extends "IfenslPadManagerBundle::layout.html.twig" %}
 
 {% block header %}
-    <h1>{{ pad }}</h1>
+    <h1>
+        <span>{{ pad.schoolYear }} {{ pad.program }} {{ pad.unit }}</span><br />
+        {{ pad.title }}
+    </h1>
 {% endblock %}
 
 {% block main %}
