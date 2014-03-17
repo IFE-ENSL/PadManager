@@ -4,5 +4,5 @@ Programme: {{ pad.program|raw }}
 Unité d'enseignement: {{ pad.unit|raw }}
 Titre: {{ pad.title|raw }}
 
-Cliquez sur le lien ci-dessous pour y accéder:
+Cliquez sur le lien ci-dessous pour y accéder :
 {{ url('ifensl_pad_show_public', {'slug': pad.slug, 'public_token': pad.publicToken}) }}
