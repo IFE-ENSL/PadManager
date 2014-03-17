@@ -1,4 +1,4 @@
-jQuery(document).on("click", "a.ajax-ready", function(event){
+jQuery(document).on("click", ".ajax-ready", function(event){
     event.preventDefault();
     var url = $(this).attr('href');
     jQuery.ajax({

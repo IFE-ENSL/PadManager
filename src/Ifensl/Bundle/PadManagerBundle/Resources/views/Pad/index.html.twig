@@ -10,6 +10,7 @@
         <form action="{{ path('ifensl_pad_create') }}" method="post" {{ form_enctype(form) }}>
             {{ form_widget(form) }}
         </form>
+        <a class="get-all-pads-button ajax-ready" href="{{ path('ifensl_pad_list') }}">Tous mes pads</a>
         <div class="mentions">
             <p>
                 Nous recueillons des informations personnelles sur l'utilisation
@@ -17,9 +18,6 @@
                 Pour en savoir plus sur l'utilisation de ses informations,
                 veuillez consulter notre <a href="{{ path('ifensl_pad_privacy') }}">charte de confidentialité</a>.
             </p>
-        </div>
-        <div class="links">
-             <a class="ajax-ready" href="{{ path('ifensl_pad_list') }}">Récupérer la liste des pads</a>
         </div>
     </div>
 {% endblock %}
