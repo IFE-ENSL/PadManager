@@ -86,7 +86,7 @@ class PadController extends Controller
                 $this->get('ifensl_pad_manager')->invitePadUser($pad, $padUser);
             }
             $this->get('session')->getFlashBag()->add('success', sprintf(
-                "Votre pad à bien été créé, un courriel vient de vous être envoyé à l'adresse %s contenant toutes les informations ...",
+                "Votre pad a bien été créé, un courriel vient de vous être envoyé à l'adresse %s contenant toutes les informations ...",
                 $pad->getPadOwner()
             ));
 
