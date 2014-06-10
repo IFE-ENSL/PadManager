@@ -84,7 +84,7 @@ class PadMailer
     {
         $message = \Swift_Message::newInstance()
             ->setFrom($this->getMailerConfiguration('from'))
-            ->setSubject('Un nouveau pad a été créer')
+            ->setSubject('Un nouveau pad a été créé')
             ->setTo($pad->getPadOwner()->getEmail())
             ->setBody($this->getTwigEngine()
                 ->render('IfenslPadManagerBundle:Mail:created.txt.twig',
