@@ -1,0 +1,18 @@
+{
+    "items":[
+        {% for program in programs %}
+            {
+            
+                "id": {{ program.id }},
+                {% if program.description %}
+                    "description" : "{{ program.description }}",
+                {% endif %}
+                "name": "{{ program.name }}"
+            {% if loop.last %}
+                }
+            {% else %}
+                },
+            {% endif %}
+        {% endfor %}
+    ]
+}

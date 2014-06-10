@@ -210,6 +210,57 @@ class PadManager
     }
 
     /**
+     * Create a Pad from the api
+     *
+     * @param string $ownerMail
+     * @param string $programId
+     * @param string $unitId
+     * @param string $title
+     * @return Pad $pad
+     */
+    public function createPadFromApi($ownerMail, $programId, $unitId, $title)
+    {
+        $owner = $this->getEntityManager()->getRepository('IfenslPadManagerBundle:PadUser')->findOneBy(array('email' => $ownerMail));
+        if (!$owner) {
+            $owner = new PadUser($ownerMail);
+        }
+
+        $pad = $this->findOneBy(array(
+            'padOwner' => $owner->getId(),
+            'program'  => $programId,
+            'unit'     => $unitId,
+            'slug'     => StringTools::slugify($title)
+        ));
+
+        if ($pad) {
+            throw new PadAlreadyExistException($pad);
+        }
+
+        $program = $this->getEntityManager()->getRepository('IfenslPadManagerBundle:Program')->find($programId);
+        $unit = $this->getEntityManager()->getRepository('IfenslPadManagerBundle:Unit')->find($unitId);
+
+        $pad = new Pad();
+        $pad
+            ->setPadOwner($owner)
+            ->setSchoolYear($this->getCurrentSchoolYear())
+            ->setProgram($program)
+            ->setUnit($unit)
+            ->setTitle($title)
+            ->setSlug(StringTools::slugify($title))
+        ;
+        $this->generatePadTokens($pad);
+
+        $this->getEtherpadApiClient()->createNewPad($pad);
+
+        $this->getEntityManager()->persist($pad);
+        $this->getEntityManager()->flush();
+
+        $this->sendOwnerMail($pad);
+
+        return $pad;
+    }
+
+    /**
      * Invite Pad User
      *
      * @param Pad $pad

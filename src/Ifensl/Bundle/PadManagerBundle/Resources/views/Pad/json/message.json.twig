@@ -1,0 +1,26 @@
+{
+    "type": "{{ message.type }}",
+    "content": "{{ message.content|json_encode() }}",
+    {% if message.type == 'success' %}
+        {% if pad.publicToken %}
+            "public_url": "{{ url('ifensl_pad_show_public', {'slug': pad.slug, 'public_token': pad.publicToken}) }}",
+        {% endif %}
+        {% if pad.privateToken %}
+            "private_url": "{{ url('ifensl_pad_show_private', {'slug': pad.slug, 'private_token': pad.privateToken}) }}",
+        {% endif %}
+        "program": "{{ pad.program|raw }}",
+        "unit": "{{ pad.unit|raw }}",
+        "title": "{{ pad.title|raw }}",
+        "padOwner": "{{ pad.padOwner}}",
+        {% if pad.padUsers %}
+            "padUsers": [
+                {% for padUser in pad.padUsers %}
+                    { "mail": "{{ padUser }}" }
+                    {% if not loop.last %}
+                        ,
+                    {% endif %}
+                {% endfor %}
+            ]
+        {% endif %}
+    {% endif %}
+}
