@@ -62,7 +62,7 @@ class ApiController extends Controller
         $message = array(
             "type" => 'success',
             "content" => sprintf(
-                "Votre pad à bien été créé.",
+                "Votre pad a bien été créé.",
                 $pad->getPadOwner()
             )
         );

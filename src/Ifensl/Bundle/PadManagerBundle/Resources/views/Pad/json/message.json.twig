@@ -1,6 +1,4 @@
 {
-    "type": "{{ message.type }}",
-    "content": "{{ message.content|json_encode() }}",
     {% if message.type == 'success' %}
         {% if pad.publicToken %}
             "public_url": "{{ url('ifensl_pad_show_public', {'slug': pad.slug, 'public_token': pad.publicToken}) }}",
@@ -20,7 +18,9 @@
                         ,
                     {% endif %}
                 {% endfor %}
-            ]
+            ],
         {% endif %}
     {% endif %}
+    "type": "{{ message.type }}",
+    "content": "{{ message.content|json_encode() }}"
 }
