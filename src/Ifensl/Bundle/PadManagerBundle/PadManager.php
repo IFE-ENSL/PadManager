@@ -264,10 +264,22 @@ class PadManager
      * Invite Pad User
      *
      * @param Pad $pad
-     * @param PadUser $user
+     * @param mixed $user
      */
-    public function invitePadUser(Pad $pad, PadUser $user)
+    public function invitePadUser(Pad $pad, $user)
     {
+        if (!($user instanceof PadUser)) {
+            $mail = $user;
+            $user = $this
+                ->getEntityManager()
+                ->getRepository('IfenslPadManagerBundle:PadUser')
+                ->findOneBy(array('email' => $mail))
+            ;
+            if (!$user) {
+                $user = new PadUser($mail);
+            }
+        }
+
         $pad->addPadUser($user);
         $this->getEntityManager()->persist($pad);
         $this->getEntityManager()->flush();

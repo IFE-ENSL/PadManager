@@ -61,11 +61,8 @@ class ApiController extends Controller
 
         $message = array(
             "type" => 'success',
-            "content" => sprintf(
-                "Votre pad a bien été créé.",
-                $pad->getPadOwner()
-            )
-        );
+            "content" => "Votre pad a bien été créé"
+        );  
         $response = new Response(
             $this->renderView(
                 'IfenslPadManagerBundle:Pad:json/message.json.twig',
