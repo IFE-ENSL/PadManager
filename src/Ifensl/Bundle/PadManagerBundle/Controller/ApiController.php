@@ -69,7 +69,6 @@ class ApiController extends Controller
                 array('message' => $message, 'pad' => $pad)
             )
         );
-
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
@@ -96,7 +95,6 @@ class ApiController extends Controller
             )
         );
         $response->headers->set('Content-Type', 'application/json');
-        $response->setCharset("UTF-8");
 
         return $response;
     }
@@ -121,7 +119,6 @@ class ApiController extends Controller
                 array('programs' => $programs)
             )
         );
-
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
