@@ -71,7 +71,7 @@ class PadController extends Controller
                 $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken($intentions);
 
                 $this->get('session')->getFlashBag()->add('error', sprintf(
-                    "Le Pad souhaité a déjà été créé. Vous pouvez <a href='%s'>demander le renvoi du lien</a> à l'adresse %s",
+                    "Le Cahier souhaité a déjà été créé. Vous pouvez <a href='%s'>demander le renvoi du lien</a> à l'adresse %s",
                     $this->generateUrl('ifensl_pad_link_lost', array(
                         'id' => $pae->getPad()->getId(),
                         'csrf_token' => $csrfToken
@@ -86,7 +86,7 @@ class PadController extends Controller
                 $this->get('ifensl_pad_manager')->invitePadUser($pad, $padUser);
             }
             $this->get('session')->getFlashBag()->add('success', sprintf(
-                "Votre pad a bien été créé, un courriel vient de vous être envoyé à l'adresse %s contenant toutes les informations ...",
+                "Votre Cahier a bien été créé, un courriel vient de vous être envoyé à l'adresse %s contenant toutes les informations ...",
                 $pad->getPadOwner()
             ));
 
@@ -155,7 +155,7 @@ class PadController extends Controller
             $padUser = $this->get('ifensl_pad_manager')->getPadUser($data['email']);
             if (!$padUser) {
                 $this->get('session')->getFlashBag()->add('error', 
-                    sprintf("Il n'y a aucun pad de créé pour l'utilisateur à l'adresse %s", $data['email'])
+                    sprintf("Il n'y a aucun Cahier de créé pour l'utilisateur à l'adresse %s", $data['email'])
                 );
 
                 return $this->redirect($this->generateUrl('ifensl_pad_list'));

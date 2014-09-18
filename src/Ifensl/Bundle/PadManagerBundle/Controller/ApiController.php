@@ -39,7 +39,7 @@ class ApiController extends Controller
         } catch (PadAlreadyExistException $pae) {
             $message = array(
                 "type" => 'error',
-                "content" => sprintf("Le Pad souhaité a déjà été créé.")
+                "content" => sprintf("Le Cahier souhaité a déjà été créé.")
             );
             $response = new Response(
                 $this->renderView(
@@ -61,7 +61,7 @@ class ApiController extends Controller
 
         $message = array(
             "type" => 'success',
-            "content" => "Votre pad a bien été créé"
+            "content" => "Votre Cahier a bien été créé"
         );  
         $response = new Response(
             $this->renderView(

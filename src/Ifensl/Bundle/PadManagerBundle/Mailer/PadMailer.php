@@ -84,7 +84,7 @@ class PadMailer
     {
         $message = \Swift_Message::newInstance()
             ->setFrom($this->getMailerConfiguration('from'))
-            ->setSubject('Un nouveau pad a été créé')
+            ->setSubject('Un nouveau Cahier a été créé')
             ->setTo($pad->getPadOwner()->getEmail())
             ->setBody($this->getTwigEngine()
                 ->render('IfenslPadManagerBundle:Mail:created.txt.twig',
@@ -106,7 +106,7 @@ class PadMailer
     {
         $message = \Swift_Message::newInstance()
             ->setFrom($this->getMailerConfiguration('from'))
-            ->setSubject('Vous avez été invité à rejoindre un pad')
+            ->setSubject('Vous avez été invité à rejoindre un Cahier')
             ->setTo($user->getEmail())
             ->setBody($this->getTwigEngine()
                 ->render('IfenslPadManagerBundle:Mail:invited.txt.twig',
@@ -148,7 +148,7 @@ class PadMailer
     {
         $message = \Swift_Message::newInstance()
             ->setFrom($this->getMailerConfiguration('from'))
-            ->setSubject('Liste de vos pads')
+            ->setSubject('Liste de vos Cahiers')
             ->setTo($padUser->getEmail())
             ->setBody($this->getTwigEngine()
                 ->render('IfenslPadManagerBundle:Mail:list.txt.twig',
