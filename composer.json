@@ -20,8 +20,8 @@
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "da/auth-common-bundle": "dev-master",
-        "da/api-client-bundle": "dev-master"
+        "da/auth-common-bundle": "1.0.*",
+        "da/api-client-bundle": "1.1.*"
     },
     "scripts": {
         "post-install-cmd": [

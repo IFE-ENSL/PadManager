@@ -30,16 +30,38 @@ class ApiController extends Controller
         $params = $request->request->all();
 
         try {
-            $pad = $this->get('ifensl_pad_manager')->createPadFromApi(
-                $params["padOwner"],
-                $params["program"],
-                $params["unit"],
+            $owner = $this->getDoctrine()->getManager()->getRepository('IfenslPadManagerBundle:PadUser')->findOneBy(array('email' => $params["padOwner"]));
+            if (!$owner) {
+                $owner = new PadUser($ownerMail);
+            }
+            $program = $this->getDoctrine()->getManager()->getRepository('IfenslPadManagerBundle:Program')->find($params["program"]);
+            $unit = $this->getDoctrine()->getManager()->getRepository('IfenslPadManagerBundle:Unit')->find($params["unit"]);
+
+            $pad = $this->get('ifensl_pad_manager')->createPad(
+                $owner,
+                $program,
+                $unit,
                 $params["title"]
             );
         } catch (PadAlreadyExistException $pae) {
             $message = array(
                 "type" => 'error',
                 "content" => sprintf("Le Cahier souhaité a déjà été créé.")
+            );
+            $response = new Response(
+                $this->renderView(
+                    'IfenslPadManagerBundle:Pad:json/message.json.twig',
+                    array('message' => $message)
+                )
+            );
+
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        } catch (\Exception $e) {
+            $message = array(
+                "type" => 'error',
+                "content" => sprintf("Une erreur est survenue : %s", $e->getMessage())
             );
             $response = new Response(
                 $this->renderView(

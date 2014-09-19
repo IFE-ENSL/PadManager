@@ -13,7 +13,7 @@ namespace Ifensl\Bundle\PadManagerBundle;
 use Doctrine\ORM\EntityManager;
 use Ifensl\Bundle\PadManagerBundle\TokenGenerator\PadTokenGenerator;
 use Ifensl\Bundle\PadManagerBundle\Mailer\PadMailer;
-use Da\ApiClientBundle\HttpClient\RestApiClientBridge;
+use Da\ApiClientBundle\Http\Rest\RestApiClientBridge;
 use Ifensl\Bundle\PadManagerBundle\Entity\Pad;
 use Ifensl\Bundle\PadManagerBundle\Entity\PadUser;
 use Ifensl\Bundle\PadManagerBundle\Entity\Program;
@@ -173,6 +173,8 @@ class PadManager
      * @param Program $program
      * @param Unit $unit
      * @param string $title
+     * @throws PadApiException
+     * @throws ApiHttpResponseException
      * @return Pad $pad
      */
     public function createPad(PadUser $owner, Program $program, Unit $unit, $title)
@@ -187,57 +189,6 @@ class PadManager
         if ($pad) {
             throw new PadAlreadyExistException($pad);
         }
-
-        $pad = new Pad();
-        $pad
-            ->setPadOwner($owner)
-            ->setSchoolYear($this->getCurrentSchoolYear())
-            ->setProgram($program)
-            ->setUnit($unit)
-            ->setTitle($title)
-            ->setSlug(StringTools::slugify($title))
-        ;
-        $this->generatePadTokens($pad);
-
-        $this->getEtherpadApiClient()->createNewPad($pad);
-
-        $this->getEntityManager()->persist($pad);
-        $this->getEntityManager()->flush();
-
-        $this->sendOwnerMail($pad);
-
-        return $pad;
-    }
-
-    /**
-     * Create a Pad from the api
-     *
-     * @param string $ownerMail
-     * @param string $programId
-     * @param string $unitId
-     * @param string $title
-     * @return Pad $pad
-     */
-    public function createPadFromApi($ownerMail, $programId, $unitId, $title)
-    {
-        $owner = $this->getEntityManager()->getRepository('IfenslPadManagerBundle:PadUser')->findOneBy(array('email' => $ownerMail));
-        if (!$owner) {
-            $owner = new PadUser($ownerMail);
-        }
-
-        $pad = $this->findOneBy(array(
-            'padOwner' => $owner->getId(),
-            'program'  => $programId,
-            'unit'     => $unitId,
-            'slug'     => StringTools::slugify($title)
-        ));
-
-        if ($pad) {
-            throw new PadAlreadyExistException($pad);
-        }
-
-        $program = $this->getEntityManager()->getRepository('IfenslPadManagerBundle:Program')->find($programId);
-        $unit = $this->getEntityManager()->getRepository('IfenslPadManagerBundle:Unit')->find($unitId);
 
         $pad = new Pad();
         $pad

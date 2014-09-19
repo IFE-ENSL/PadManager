@@ -80,6 +80,13 @@ class PadController extends Controller
                 ));
 
                 return array('form' => $form->createView());
+            } catch (\Exception $e) {
+                $this->get('session')->getFlashBag()->add('error', sprintf(
+                    "Une erreur est survenue : %s",
+                    $e->getMessage()
+                ));
+
+                return array('form' => $form->createView());
             }
 
             foreach ($newPad->getPadUsers() as $k => $padUser) {
