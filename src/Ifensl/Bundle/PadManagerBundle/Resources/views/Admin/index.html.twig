@@ -7,8 +7,12 @@
 
 {% block main %}
     <div class="container">
+        <form method="get" action="{{  path('admin_pads') }}">
+            {{ form_rest(filterForm) }}
+            <input type="submit" name="submit-filter" value="filter" />
+        </form>
         {% if pager.haveToPaginate %}
-            {{ pagerfanta(pager, 'twitter_bootstrap', {'routeName': 'admin_pads_paginated'}) }}
+            {{ pagerfanta(pager, 'twitter_bootstrap', {'routeName': 'admin_pads'}) }}
         {% endif %}
         <table class="table table-striped">
             <thead>
@@ -52,7 +56,7 @@
             </tbody>
         </table>
         {% if pager.haveToPaginate %}
-            {{ pagerfanta(pager, 'twitter_bootstrap', {'routeName': 'admin_pads_paginated'}) }}
+            {{ pagerfanta(pager, 'twitter_bootstrap', {'routeName': 'admin_pads'}) }}
         {% endif %}
     </div>
 {% endblock %}

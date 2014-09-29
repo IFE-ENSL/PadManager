@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Da\ApiClientBundle\DaApiClientBundle(),
             new Ifensl\Bundle\PadManagerBundle\IfenslPadManagerBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+            new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

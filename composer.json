@@ -22,7 +22,8 @@
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "da/auth-common-bundle": "1.0.*",
         "da/api-client-bundle": "1.1.*",
-        "white-october/pagerfanta-bundle": "dev-master"
+        "white-october/pagerfanta-bundle": "dev-master",
+        "lexik/form-filter-bundle": "2.0.*"
     },
     "scripts": {
         "post-install-cmd": [

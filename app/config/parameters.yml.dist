@@ -21,3 +21,4 @@ parameters:
     navbar_js_url:     http://ecoweb.ens-lyon.fr/navbar/web/app.php/nav.js
     etherpad_url:      http://ecoweb.ens-lyon.fr/etherpad
     etherpad_security_token: 'taAhKt43ylIvAgZzs1z6M2ng9oWJvSnN'
+    max_pads_per_page: 20
