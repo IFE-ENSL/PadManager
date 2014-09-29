@@ -1,0 +1,67 @@
+/*********
+ * ADMIN *
+ *********/
+
+@font-face
+{
+    font-family: 'lobster';
+    src: url('../fonts/lobster_1.4-webfont.eot');
+    src: url('../fonts/lobster_1.4-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/lobster_1.4-webfont.woff') format('woff'),
+         url('../fonts/lobster_1.4-webfont.ttf') format('truetype'),
+         url('../fonts/lobster_1.4-webfont.svg#lobster_1.4regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/**
+ * General properties
+ */
+
+body
+{
+    margin: 0;
+    background: url('../images/background.png') repeat;
+    color: #000;
+}
+
+
+/**
+ * Home page
+ */
+
+/* Header */
+header
+{
+    min-height: 75px;
+}
+
+header h1
+{
+    font-size: 23px;
+    font-family: lobster;
+    line-height: 75px;
+    text-align: center;
+    color: #2986dc;
+    margin: 0;
+    padding-top: 25px;
+    line-height: 30px;
+}
+
+header h1 span
+{
+    padding-right: 50px;
+    color: #666666;
+    font-size: 18px;
+}
+
+
+/* Content of the page */
+#main
+{
+    min-height: 320px;
+    background: #fff;
+    border-bottom: 3px solid #8f7553;
+    border-top: 3px solid #8f7553;
+    overflow: hidden;
+}

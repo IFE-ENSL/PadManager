@@ -1,0 +1,53 @@
+{% extends "IfenslPadManagerBundle::adminlayout.html.twig" %}
+
+{% block header %}
+    {{ parent() }}
+    <h1>Administration du cahier de cours</h1>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        {% if pager.haveToPaginate %}
+            {{ pagerfanta(pager, 'twitter_bootstrap', {'routeName': 'admin_pads_paginated'}) }}
+        {% endif %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Auteur</th>
+                    <th>Programme</th>
+                    <th>Unité d'enseignement</th>
+                    <th>Année scolaire</th>
+                    <th>Titre</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pad in pager.currentPageResults %}
+                    <tr>
+                        <td>
+                            {{  pad.padOwner }}
+                        </td>
+                        <td>
+                            {{  pad.program }}
+                        </td>
+                        <td>
+                            {{  pad.unit }}
+                        </td>
+                        <td>
+                            {{  pad.schoolYear }}
+                        </td>
+                        <td>
+                            {{  pad.title }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if pager.haveToPaginate %}
+            {{ pagerfanta(pager, 'twitter_bootstrap', {'routeName': 'admin_pads_paginated'}) }}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

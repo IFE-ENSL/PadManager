@@ -1,0 +1,53 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/ifenslpadmanager/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/ifenslpadmanager/css/adminstyle.css') }}">
+    <script type="text/javascript" src="{{ asset('bundles/ifenslpadmanager/js/jquery.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <header>
+        {% block header %}
+            {% if app.session.flashbag.has('success') %}
+            <div class="alert alert-success fade in">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="flash-notice">
+                        <p>{% autoescape false %}{{ flashMessage }}{% endautoescape %}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if app.session.flashbag.has('info') %}
+            <div class="alert alert-info fade in">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {% for flashMessage in app.session.flashbag.get('info') %}
+                    <div class="flash-notice">
+                        <p>{% autoescape false %}{{ flashMessage }}{% endautoescape %}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if app.session.flashbag.has('error') %}
+            <div class="alert alert-danger fade in">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {% for flashMessage in app.session.flashbag.get('error') %}
+                    <p>{% autoescape false %}{{ flashMessage }}{% endautoescape %}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endblock %}
+    </header>
+
+    <div id="main" class="admin">
+        {% block main %}{% endblock %}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

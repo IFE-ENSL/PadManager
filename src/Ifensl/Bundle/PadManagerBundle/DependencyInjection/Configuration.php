@@ -37,6 +37,9 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('from')->isRequired()->cannotBeEmpty()->end()
                     ->end()
                 ->end()
+                ->integerNode('max_pads_per_page')
+                    ->defaultValue('20')
+                ->end()
             ->end()
         ;
 
