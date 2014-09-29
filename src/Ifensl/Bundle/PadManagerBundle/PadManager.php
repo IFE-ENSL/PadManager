@@ -167,6 +167,17 @@ class PadManager
     }
 
     /**
+     * Delete a Pad
+     *
+     * @throws PadApiException
+     * @throws ApiHttpResponseException
+     */
+    public function deletePad(Pad $pad)
+    {
+        $this->getEtherpadApiClient()->deletePad($pad);
+    }
+
+    /**
      * Create a Pad
      *
      * @param PadUser $owner
@@ -201,7 +212,7 @@ class PadManager
         ;
         $this->generatePadTokens($pad);
 
-        $this->getEtherpadApiClient()->createNewPad($pad);
+        $pad = $this->getEtherpadApiClient()->createNewPad($pad);
 
         $this->getEntityManager()->persist($pad);
         $this->getEntityManager()->flush();

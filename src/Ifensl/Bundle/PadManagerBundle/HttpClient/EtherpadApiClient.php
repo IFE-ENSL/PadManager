@@ -9,11 +9,32 @@ use Ifensl\Bundle\PadManagerBundle\Exception\PadApiException;
 class EtherpadApiClient extends RestApiClientBridge
 {
     /**
+     * Delete a EtherPad
+     *
+     * @param Pad $pad
+     * @throws PadApiException
+     * @throws ApiHttpResponseException
+     */
+    public function deletePad(Pad & $pad)
+    {
+        $data = $this->post('/1/deletePad', array(
+            'apikey' => $this->implementor->getSecurityToken(),
+            'padID'  => $pad->getPadId()
+        ));
+        $apiData = json_decode($data->getContent(), true);
+
+        if ($apiData['code'] != 0) {
+            throw new PadApiException($apiData);
+        }
+    }
+
+    /**
      * Create a new EtherPad
      *
      * @param Pad $pad
      * @throws PadApiException
      * @throws ApiHttpResponseException
+     * @return Pad $pad
      */
     public function createNewPad(Pad & $pad)
     {
@@ -48,10 +69,15 @@ class EtherpadApiClient extends RestApiClientBridge
             'padName' => $pad->getPrivateToken(),
             'text'    => $pad->__toString()
         ));
+
         $apiData = json_decode($data->getContent(), true);
         if ($apiData['code'] != 0) {
             throw new PadApiException($apiData);
         }
+
+        $pad->setPadId($apiData['data']['padID']);
+
+        return $pad;
     }
 
     /**
@@ -73,6 +99,7 @@ class EtherpadApiClient extends RestApiClientBridge
             'authorID'   => $pad->getPadOwner()->getAuthorId(),
             'validUntil' => $date->getTimestamp()
         ));
+
         $apiData = json_decode($data->getContent(), true);
         if ($apiData['code'] != 0) {
             throw new PadApiException($apiData);

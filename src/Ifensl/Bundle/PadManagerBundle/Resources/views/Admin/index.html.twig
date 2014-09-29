@@ -10,7 +10,7 @@
         {% if pager.haveToPaginate %}
             {{ pagerfanta(pager, 'twitter_bootstrap', {'routeName': 'admin_pads_paginated'}) }}
         {% endif %}
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Auteur</th>
@@ -18,25 +18,34 @@
                     <th>Unité d'enseignement</th>
                     <th>Année scolaire</th>
                     <th>Titre</th>
+                    <th colspan="2">{% trans %}Actions{% endtrans %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for pad in pager.currentPageResults %}
                     <tr>
                         <td>
-                            {{  pad.padOwner }}
+                            {{ pad.padOwner }}
                         </td>
                         <td>
-                            {{  pad.program }}
+                            {{ pad.program }}
                         </td>
                         <td>
-                            {{  pad.unit }}
+                            {{ pad.unit }}
                         </td>
                         <td>
-                            {{  pad.schoolYear }}
+                            {{ pad.schoolYear }}
                         </td>
                         <td>
-                            {{  pad.title }}
+                            {{ pad.title }}
+                        </td>
+                        <td>
+                            <a class="btn btn-block btn-primary"
+                               href="{{ path('ifensl_pad_show_private', {'slug': pad.slug, 'private_token': pad.privateToken}) }}"
+                            >
+                                Voir
+                            </a>
+                            {{ render(controller('IfenslPadManagerBundle:Admin:deleteForm', { 'id': pad.id })) }}
                         </td>
                     </tr>
                 {% endfor %}
