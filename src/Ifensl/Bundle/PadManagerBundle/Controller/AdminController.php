@@ -78,7 +78,7 @@ class AdminController extends Controller
                 throw $this->createNotFoundException('Unable to find Pad.');
             }
 
-            // try to delete the pad via the api
+            // try to delete the pad via the pad api
             try {
                 $this->get('ifensl_pad_manager')->deletePad($pad);
             } catch (\Exception $e) {

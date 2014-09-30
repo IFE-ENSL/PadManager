@@ -10,7 +10,29 @@ class PadFilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('schoolYear', 'filter_number');
+        $builder
+            ->add('schoolYear', 'filter_number', array(
+                'label' => 'Année Scolaire'
+            ))
+            ->add('title', 'filter_text', array(
+                'label' => 'Titre'
+            ))
+            ->add('program', 'filter_entity', array(
+                'class' => 'IfenslPadManagerBundle:Program',
+                'attr' => array('class' => 'chosen-field'),
+                'label' => 'Programme'
+            ))
+            ->add('unit', 'filter_entity', array(
+                'class' => 'IfenslPadManagerBundle:Unit',
+                'attr' => array('class' => 'chosen-field'),
+                'label' => 'Unité d\'enseignement'
+            ))
+            ->add('padOwner', 'filter_entity', array(
+                'class' => 'IfenslPadManagerBundle:PadUser',
+                'attr' => array('class' => 'chosen-field'),
+                'label' => 'Créateur du pad'
+            ))
+        ;
     }
 
     public function getName()

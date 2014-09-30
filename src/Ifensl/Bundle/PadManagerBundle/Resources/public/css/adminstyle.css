@@ -25,10 +25,10 @@ body
     color: #000;
 }
 
-
-/**
- * Home page
- */
+.btn {
+    padding-left: 5px;
+    padding-right: 5px;
+}
 
 /* Header */
 header
@@ -55,7 +55,6 @@ header h1 span
     font-size: 18px;
 }
 
-
 /* Content of the page */
 #main
 {
@@ -64,4 +63,22 @@ header h1 span
     border-bottom: 3px solid #8f7553;
     border-top: 3px solid #8f7553;
     overflow: hidden;
+}
+
+/* Form */
+
+#main > div > form {
+    position: relative;
+}
+
+#main > div > form > div {
+    float: left;
+    padding: 10px;
+    min-height: 70px;
+}
+
+#main > div > form > input {
+    float: left;
+    margin: 30px 0 0 10px;
+    width: 100px;
 }

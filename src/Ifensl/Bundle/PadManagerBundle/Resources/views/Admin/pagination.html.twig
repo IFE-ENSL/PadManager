@@ -1,0 +1,8 @@
+{% if pager.haveToPaginate %}
+    {% set request = masterRequest is defined ? masterRequest : app.request %}
+    {% set defaultRouteParams = request.query.all %}
+    {% if routeParams is defined %}
+        {% set defaultRouteParams = defaultRouteParams | merge(routeParams) %}
+    {% endif %}
+    {{ pagerfanta(pager, 'twitter_bootstrap_translated', {'routeName': routeName, 'routeParams': defaultRouteParams}) }}
+{% endif %}

@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: %locale% }
+    translator:      { fallback: %locale% }
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -88,3 +88,10 @@ ifensl_pad_manager:
         url: %etherpad_url%
     mailer:
         from: %mailer_from%
+    max_pads_per_page: %max_pads_per_page%
+
+# LexikFilter Configuration
+twig:
+    form:
+        resources:
+            - LexikFormFilterBundle:Form:form_div_layout.html.twig

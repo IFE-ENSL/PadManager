@@ -9,11 +9,9 @@
     <div class="container">
         <form method="get" action="{{  path('admin_pads') }}">
             {{ form_rest(filterForm) }}
-            <input type="submit" name="submit-filter" value="filter" />
+            <input class="btn btn-primary" type="submit" name="submit-filter" value="Filtrer" />
         </form>
-        {% if pager.haveToPaginate %}
-            {{ pagerfanta(pager, 'twitter_bootstrap', {'routeName': 'admin_pads'}) }}
-        {% endif %}
+        {{ include('IfenslPadManagerBundle:Admin:pagination.html.twig', {'routeName': 'admin_pads', 'routeParams':{'pager': pager}}) }}
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -52,12 +50,14 @@
                             {{ render(controller('IfenslPadManagerBundle:Admin:deleteForm', { 'id': pad.id })) }}
                         </td>
                     </tr>
+                {%  else %}
+                    <tr>
+                        <td colspan="6">Aucun pad n'a été trouvé</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
-        {% if pager.haveToPaginate %}
-            {{ pagerfanta(pager, 'twitter_bootstrap', {'routeName': 'admin_pads'}) }}
-        {% endif %}
+        {{ include('IfenslPadManagerBundle:Admin:pagination.html.twig', {'routeName': 'admin_pads', 'routeParams':{'pager': pager}}) }}
     </div>
 {% endblock %}
 

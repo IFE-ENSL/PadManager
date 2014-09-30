@@ -3,8 +3,6 @@
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/ifenslpadmanager/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/ifenslpadmanager/css/style.css') }}">
-    <script type="text/javascript" src="{{ asset('bundles/ifenslpadmanager/js/jquery.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/ifenslpadmanager/js/bootstrap.min.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -51,5 +49,7 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/ifenslpadmanager/js/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/ifenslpadmanager/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ navbar_js_url }}"></script>
 {% endblock %}
