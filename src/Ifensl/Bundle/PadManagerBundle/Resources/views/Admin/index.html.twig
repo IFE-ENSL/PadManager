@@ -2,20 +2,22 @@
 
 {% block header %}
     {{ parent() }}
-    <h1>Administration du cahier de cours</h1>
+    <h1><a href="{{ path("admin_pads") }}">Administration du cahier de cours</a></h1>
 {% endblock %}
 
 {% block main %}
     <div class="container">
-        <form method="get" action="{{  path('admin_pads') }}">
+        <form class="container" method="get" action="{{  path('admin_pads') }}">
+            <h3>Filtres</h3>
             {{ form_rest(filterForm) }}
             <input class="btn btn-primary" type="submit" name="submit-filter" value="Filtrer" />
+            <a class="btn-reset btn btn-primary" href="{{ path("admin_pads") }}">Réinitialiser</a>
         </form>
         {{ include('IfenslPadManagerBundle:Admin:pagination.html.twig', {'routeName': 'admin_pads', 'routeParams':{'pager': pager}}) }}
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Auteur</th>
+                    <th>Créateur du pad</th>
                     <th>Programme</th>
                     <th>Unité d'enseignement</th>
                     <th>Année scolaire</th>

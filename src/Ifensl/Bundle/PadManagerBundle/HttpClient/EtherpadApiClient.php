@@ -19,7 +19,8 @@ class EtherpadApiClient extends RestApiClientBridge
     {
         $data = $this->post('/1/deletePad', array(
             'apikey' => $this->implementor->getSecurityToken(),
-            'padID'  => $pad->getPadId()
+            //'padID'  => $pad->getPrivateToken(),
+            'padID'  => $pad->getPadId(),
         ));
         $apiData = json_decode($data->getContent(), true);
 

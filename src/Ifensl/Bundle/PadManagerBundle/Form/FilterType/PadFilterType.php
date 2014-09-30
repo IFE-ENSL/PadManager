@@ -20,17 +20,20 @@ class PadFilterType extends AbstractType
             ->add('program', 'filter_entity', array(
                 'class' => 'IfenslPadManagerBundle:Program',
                 'attr' => array('class' => 'chosen-field'),
-                'label' => 'Programme'
+                'label' => 'Programme',
+                'empty_value' => 'Choisissez un programme'
             ))
             ->add('unit', 'filter_entity', array(
                 'class' => 'IfenslPadManagerBundle:Unit',
                 'attr' => array('class' => 'chosen-field'),
-                'label' => 'Unité d\'enseignement'
+                'label' => 'Unité d\'enseignement',
+                'empty_value' => 'Choisissez une unité d\'enseignement'
             ))
             ->add('padOwner', 'filter_entity', array(
                 'class' => 'IfenslPadManagerBundle:PadUser',
                 'attr' => array('class' => 'chosen-field'),
-                'label' => 'Créateur du pad'
+                'label' => 'Créateur du pad',
+                'empty_value' => 'Choisissez un créateur de pad'
             ))
         ;
     }

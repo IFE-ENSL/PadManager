@@ -68,7 +68,13 @@ header h1 span
 /* Form */
 
 #main > div > form {
+    margin-top: 20px;
     position: relative;
+}
+
+#main > div > form h3 {
+    font-weight: normal;
+    border-bottom: 1px solid #ddd;
 }
 
 #main > div > form > div {
@@ -77,7 +83,8 @@ header h1 span
     min-height: 70px;
 }
 
-#main > div > form > input {
+#main form > input,
+#main form > .btn-reset {
     float: left;
     margin: 30px 0 0 10px;
     width: 100px;

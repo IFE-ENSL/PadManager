@@ -29,7 +29,8 @@ twig:
         navbar_js_url: %navbar_js_url%
     form:
         resources:
-            - 'IfenslPadManagerBundle:Form:fields.html.twig'
+            - LexikFormFilterBundle:Form:form_div_layout.html.twig
+            - IfenslPadManagerBundle:Form:fields.html.twig
 
 # Assetic Configuration
 assetic:
@@ -89,9 +90,3 @@ ifensl_pad_manager:
     mailer:
         from: %mailer_from%
     max_pads_per_page: %max_pads_per_page%
-
-# LexikFilter Configuration
-twig:
-    form:
-        resources:
-            - LexikFormFilterBundle:Form:form_div_layout.html.twig
