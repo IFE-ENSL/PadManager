@@ -37,20 +37,6 @@ class PadUser
     private $email;
 
     /**
-     * @var string $authorId
-     *
-     * @ORM\Column(type="string", length=128, nullable=true, unique=true)
-     */
-    private $authorId;
-
-    /**
-     * @var string $groupId
-     *
-     * @ORM\Column(type="string", length=128, nullable=true, unique=true)
-     */
-    private $groupId;
-
-    /**
      * @ORM\OneToMany(targetEntity="Pad", mappedBy="padOwner")
      */
     private $ownPads;
@@ -89,52 +75,6 @@ class PadUser
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set authorId
-     *
-     * @param string $authorId
-     * @return PadUser
-     */
-    public function setAuthorId($authorId)
-    {
-        $this->authorId = $authorId;
-    
-        return $this;
-    }
-
-    /**
-     * Get authorId
-     *
-     * @return string 
-     */
-    public function getAuthorId()
-    {
-        return $this->authorId;
-    }
-
-    /**
-     * Set groupId
-     *
-     * @param string $groupId
-     * @return PadUser
-     */
-    public function setGroupId($groupId)
-    {
-        $this->groupId = $groupId;
-    
-        return $this;
-    }
-
-    /**
-     * Get groupId
-     *
-     * @return string 
-     */
-    public function getGroupId()
-    {
-        return $this->groupId;
     }
 
     /**

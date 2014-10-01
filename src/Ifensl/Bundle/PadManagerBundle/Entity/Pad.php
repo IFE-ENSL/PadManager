@@ -57,13 +57,6 @@ class Pad
     private $publicToken;
 
     /**
-     * @var string $padId
-     *
-     * @ORM\Column(type="string", length=128, nullable=true, unique=true)
-     */
-    private $padId;
-
-    /**
      * @var string $state
      *
      * @ORM\Column(type="string", length=255)
@@ -262,29 +255,6 @@ class Pad
     public function getPublicToken()
     {
         return $this->publicToken;
-    }
-
-    /**
-     * Set padId
-     *
-     * @param string $padId
-     * @return Pad
-     */
-    public function setPadId($padId)
-    {
-        $this->padId = $padId;
-    
-        return $this;
-    }
-
-    /**
-     * Get padId
-     *
-     * @return string 
-     */
-    public function getPadId()
-    {
-        return $this->padId;
     }
 
     /**

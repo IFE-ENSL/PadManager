@@ -207,11 +207,7 @@ class PadController extends Controller
             throw $this->createNotFoundException();
         }
 
-        $sessionId = $this->get('ifensl_pad_manager')->createOwnerSession($pad);
-
         $response = new Response();
-        $response->headers->setCookie(new Cookie('sessionID', $sessionId));
-        //$response->headers->set('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 
         $etherpadConfiguration = $this->container->getParameter('ifensl_pad_manager.etherpad');
         $response->setContent($this->renderView("IfenslPadManagerBundle:Pad:show.html.twig", array(

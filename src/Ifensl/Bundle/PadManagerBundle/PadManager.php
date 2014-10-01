@@ -156,17 +156,6 @@ class PadManager
     }
 
     /**
-     * Create an owner session
-     *
-     * @param Pad $pad
-     * @return string
-     */
-    public function createOwnerSession(Pad $pad)
-    {
-        return $this->getEtherpadApiClient()->createPadOwnerSession($pad);
-    }
-
-    /**
      * Delete a Pad
      *
      * @throws PadApiException
