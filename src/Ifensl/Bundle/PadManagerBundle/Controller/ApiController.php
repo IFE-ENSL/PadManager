@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Ifensl\Bundle\PadManagerBundle\Entity\Pad;
+use Ifensl\Bundle\PadManagerBundle\Entity\PadUser;
 use Ifensl\Bundle\PadManagerBundle\Form\PadType;
 use Ifensl\Bundle\PadManagerBundle\Exception\PadAlreadyExistException;
 
@@ -32,7 +33,7 @@ class ApiController extends Controller
         try {
             $owner = $this->getDoctrine()->getManager()->getRepository('IfenslPadManagerBundle:PadUser')->findOneBy(array('email' => $params["padOwner"]));
             if (!$owner) {
-                $owner = new PadUser($ownerMail);
+                $owner = new PadUser($params["padOwner"]);
             }
             $program = $this->getDoctrine()->getManager()->getRepository('IfenslPadManagerBundle:Program')->find($params["program"]);
             $unit = $this->getDoctrine()->getManager()->getRepository('IfenslPadManagerBundle:Unit')->find($params["unit"]);
