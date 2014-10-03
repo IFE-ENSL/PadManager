@@ -31,7 +31,11 @@ class AdminController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $queryBuilder = $em->getRepository("IfenslPadManagerBundle:Pad")->createQueryBuilder('p');
+        $queryBuilder = $em
+            ->getRepository("IfenslPadManagerBundle:Pad")
+            ->createQueryBuilder('p')
+            ->orderBy('p.createdAt', 'DESC')
+        ;
 
         $filterForm = $this->get('form.factory')->create(new PadFilterType());
 
@@ -83,7 +87,7 @@ class AdminController extends Controller
                 $this->get('ifensl_pad_manager')->deletePad($pad);
             } catch (\Exception $e) {
                 $this->get('session')->getFlashBag()->add('error', sprintf(
-                    "Une erreur est survenue : %s",
+                    "Une erreur est survenue : %s.",
                     $e->getMessage()
                 ));
 
@@ -95,7 +99,7 @@ class AdminController extends Controller
 
             $this->get('session')->getFlashBag()->add(
                 'info',
-                sprintf('Pad has been deleted')
+                sprintf('Le pad a été supprimé')
             );
         }
 
