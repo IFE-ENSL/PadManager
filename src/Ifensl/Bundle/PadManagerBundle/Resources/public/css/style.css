@@ -15,6 +15,10 @@
  * General properties
  */
 
+html,body {
+    height: 100%;
+}
+
 body
 {
     margin: 0;
@@ -24,9 +28,10 @@ body
 
 iframe
 {
+    position: absolute;
+    height: 100%;
     width: 95%;
     margin: 0 2%;
-    min-height: 80%;
     background: #fff;
 }
 
@@ -63,7 +68,8 @@ header h1 span
 /* Content of the page */
 #main
 {
-    min-height: 320px;
+    position: relative;
+    min-height: 70%;
     background: url('../images/bg_kraft.png') repeat;
     border-bottom: 3px solid #8f7553;
     border-top: 3px solid #8f7553;
